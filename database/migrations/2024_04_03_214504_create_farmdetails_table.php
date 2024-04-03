@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('farms', function (Blueprint $table) {
+        Schema::create('farmdetails', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('animalid')->unique();
-            $table->mediumText('farmname');
-            $table->tinyText('farmid')->unique();
-            $table->tinyText('location');
-            $table->tinyText('owner');
-            $table->tinyText('size');
-            $table->tinyText('farmtype');
+            $table->tinyText('phone')->nullable();
+            $table->tinyText('email')->nullable();
+            $table->tinyText('website')->nullable();
+            $table->foreignId('farms_farmid')->references('farmid')->on('farms')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('farms');
+        Schema::dropIfExists('farmdetails');
     }
 };
