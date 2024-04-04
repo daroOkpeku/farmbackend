@@ -16,7 +16,7 @@ return new class extends Migration
             $table->tinyText('phone')->nullable();
             $table->tinyText('email')->nullable();
             $table->tinyText('website')->nullable();
-            $table->foreignId('farms_farmid')->references('farmid')->on('farms')->nullable();
+            $table->foreignId('farm_farmid')->constrained('farms');
             $table->timestamps();
         });
     }

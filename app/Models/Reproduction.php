@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Reproduction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+
+        'reproductionid',
+       'animal_animalid',
+       'breedingdate',
+       'pregnancycheckdate',
+        'outcome',
+       'birtheventdate',
+    ];
 }

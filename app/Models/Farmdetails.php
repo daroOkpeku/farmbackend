@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Farmdetails extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'phone',
+        'email',
+       'website',
+        'farm_farmid',
+    ];
 }

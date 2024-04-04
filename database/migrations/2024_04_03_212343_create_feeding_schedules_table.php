@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('feeding_schedules', function (Blueprint $table) {
             $table->id();
+            $table->tinyText('scheduleid');
+            $table->foreignId('animal_animalid')->constrained('animals');
+            $table->foreignId('feed_feedid')->constrained('feeds');
+            $table->tinyText('date_of_feeding');
+            $table->tinyText('quantity');
             $table->timestamps();
         });
     }

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class HealthRecord extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'recordid',
+        'animal_animalid',
+        'event_date',
+         'type_event',
+        'details'
+    ];
 }

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('breeds', function (Blueprint $table) {
             $table->id();
+            $table->tinyText('breedid');
+            $table->tinyText('breedname');
+            $table->foreignId('species_speciesid')->constrained('species');
             $table->timestamps();
         });
     }

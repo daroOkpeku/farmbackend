@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FeedingSchedule extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    'scheduleid',
+    'animal_animalid',
+    'feed_feedid',
+     'date_of_feeding',
+       'quantity'
+    ];
 }

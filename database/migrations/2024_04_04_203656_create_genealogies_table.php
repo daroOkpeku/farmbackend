@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('health_records', function (Blueprint $table) {
+        Schema::create('genealogies', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('recordid');
+            $table->tinyText('genealogyid');
             $table->foreignId('animal_animalid')->constrained('animals');
-            $table->tinyText('event_date');
-            $table->tinyText('type_event');
-            $table->longText('details');
+            $table->tinyText('parenttype');
+            $table->tinyText('parentanimalid');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('health_records');
+        Schema::dropIfExists('genealogies');
     }
 };

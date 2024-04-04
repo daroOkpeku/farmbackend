@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('financial_records', function (Blueprint $table) {
             $table->id();
+            $table->tinyText('recordid');
+            $table->foreignId('farm_farmid')->constrained('farms');
+            $table->tinyText('type_of_finance');
+            $table->tinyText('amount');
+            $table->tinyText('date_of_finance');
+            $table->longText('details');
             $table->timestamps();
         });
     }

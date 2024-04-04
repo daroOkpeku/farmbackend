@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('feeds', function (Blueprint $table) {
             $table->id();
+            $table->tinyText('feedid');
+            $table->tinyText('feedtype');
+            $table->longText('feeddetails');
             $table->timestamps();
         });
     }

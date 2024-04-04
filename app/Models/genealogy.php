@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AnimalLocation extends Model
+class genealogy extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-       'locationid',
-       'farm_farmid',
+
+     'genealogyid',
         'animal_animalid',
-       'locationdetails',
-         'datemovedin',
-         'datemovedout',
+       'parenttype',
+        'parentanimalid'
     ];
 }

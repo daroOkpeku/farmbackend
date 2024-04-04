@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('reproductions', function (Blueprint $table) {
             $table->id();
+            $table->tinyText('reproductionid');
+            $table->foreignId('animal_animalid')->constrained('animals');
+            $table->tinyText('breedingdate');
+            $table->tinyText('pregnancycheckdate');
+            $table->tinyText('outcome');
+            $table->tinyText('birtheventdate');
             $table->timestamps();
         });
     }
