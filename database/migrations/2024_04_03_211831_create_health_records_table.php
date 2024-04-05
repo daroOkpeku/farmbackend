@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->tinyText('recordid');
             $table->foreignId('animal_animalid')->constrained('animals');
+            $table->foreignId('vaccinationschedule_vaccinationscheduleid')->constrained('vaccinationschedules');
             $table->tinyText('event_date');
-            $table->tinyText('type_event');
+            $table->enum('type_event', ['vaccination', 'illness']);
             $table->longText('details');
             $table->timestamps();
         });

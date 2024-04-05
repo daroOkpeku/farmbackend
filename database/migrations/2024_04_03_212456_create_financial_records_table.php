@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->tinyText('recordid');
             $table->foreignId('farm_farmid')->constrained('farms');
-            $table->tinyText('type_of_finance');
+            // $table->tinyText('type_of_finance');
+            $table->enum('type_of_finance', ['income', 'expense']);
             $table->tinyText('amount');
             $table->tinyText('date_of_finance');
             $table->longText('details');

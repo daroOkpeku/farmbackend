@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->tinyText('genealogyid');
             $table->foreignId('animal_animalid')->constrained('animals');
-            $table->tinyText('parenttype');
+            // $table->tinyText('parenttype');
+            $table->enum('parenttype', ['sire', 'dam']);
             $table->tinyText('parentanimalid');
             $table->timestamps();
         });
