@@ -10,7 +10,7 @@ class Animal extends Model
     use HasFactory;
 
     protected $fillable =[
-       'animalid',
+    'animalid',
       'specie_speciesid',
        'breed_breedid',
         'tagnumber',
