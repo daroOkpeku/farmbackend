@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post("/farminfo", [PostController::class, "farminfo"]);
+Route::post("/animaldetails", [PostController::class, "animaldetails"]);
+
+Route::post("/species", [PostController::class, "species"]);
+Route::post("/breed", [PostController::class, "breed"]);
+Route::post("/healthrecord", [PostController::class, "healthrecord"]);
+Route::post("/reproduction", [PostController::class, "reproduction"]);
+Route::post("/production", [PostController::class, "production"]);
+Route::post("/feed", [PostController::class, "feed"]);
+Route::post("/feedingschedule", [PostController::class, "feedingschedule"]);
+Route::post("/financialrecord", [PostController::class, "financialrecord"]);
+Route::post("/animallocation", [PostController::class, "animallocation"]);
+Route::post("/genealogy", [PostController::class, "genealogy"]);
+

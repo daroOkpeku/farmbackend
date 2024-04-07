@@ -91,7 +91,7 @@ class PostController extends Controller
          return response()->json(["success"=>"successful"],200);
      }
 
-     public function Breed(breedreq $request){
+     public function breed(breedreq $request){
          Breed::create([
             "breedid"=>$request->breedid,
             "breedname"=>$request->breedname,
@@ -179,7 +179,7 @@ class PostController extends Controller
         return response()->json(["success"=>"successfull"],200);
       }
 
-      public function Genealogy(Request $request){
+      public function genealogy(Request $request){
         genealogy::create([
             'genealogyid'=>$request->genealogyid,
             'animal_animalid'=>$request->animal_animalid,
