@@ -32,6 +32,7 @@ class PostController extends Controller
 {
 
      public function farminfo(farminforeq $request){
+        
      try {
         DB::transaction(function() use($request){
             $farm = Farm::create([
@@ -43,25 +44,20 @@ class PostController extends Controller
            'size'=>$request->size,
            'farmtype'=>$request->farmtype,
             ]);
-         try {
-            $farmdetails =  Farmdetails::where(["farm_farmid"=>$farm->farmid])->first();
-            if(!$farmdetails){
-               Farmdetails::create([
-                  'farm_farmid'=>$farm->farmid,
+            
+
+          
+          
+        Farmdetails::create([
+                  'farm_farmid'=>$farm->id,
                      'phone'=>$request->phone,
                      'email'=>$request->email,
                     'website'=>$request->website,
                    ]);
-                   return response()->json(['success'=>'successfully created'],200);
-            }
-         } catch (\Throwable $th) {
-           return response()->json(['error'=>'this farm detail exist'],500);
-         }
-
        });
-       return response()->json(['error'=>"please try again"],500);
+       return response()->json(['success'=>'successfully created'],200);
 
-     } catch (\Throwable $th) {
+     } catch (\Throwable   $e) {
         return response()->json(['error'=>"something went wrong"],500);
      }
 
@@ -69,17 +65,22 @@ class PostController extends Controller
 
 
      public function animaldetails(animaldetailsreq $request){
-
-        Animal::create([
-            "animalid"=>$request->animalid,
-            "specie_speciesid"=>$request->specie_speciesid,
-            "breed_breedid"=>$request->breed_breedid,
-            "tagnumber"=>$request->tagnumber,
-            "sex"=>$request->sex,
-            "date_of_birth"=>$request->date_of_birth,
-            "acquisition_date"=>$request->acquisition_date,
-        ]);
-       return response()->json(['success'=>'successful'],200);
+        $specie = optional(Species::where('speciesid', $request->specie_speciesid))->id??"";
+        if($specie){
+            Animal::create([
+                "animalid"=>$request->animalid,
+                "specie_speciesid"=>$specie,
+                "breed_breedid"=>$request->breed_breedid,
+                "tagnumber"=>$request->tagnumber,
+                "sex"=>$request->sex,
+                "date_of_birth"=>$request->date_of_birth,
+                "acquisition_date"=>$request->acquisition_date,
+            ]);
+           return response()->json(['success'=>'successful'],200);
+        }else{
+            return response()->json(['error' => 'Species not found'], 404);
+        }
+      
      }
 
 
@@ -101,38 +102,56 @@ class PostController extends Controller
      }
 
      public function healthrecord(healthrecordreq $request){
+       $animal = optional(Animal::where('animalid', $request->animal_animalid))->id;
+       if($animal){
         HealthRecord::create([
             'recordid'=>$request->recordid,
-            'animal_animalid'=>$request->animal_animalid,
+            'animal_animalid'=>$animal,
             'event_date'=>$request->event_date,
              'type_event'=>$request->type_event,
             'details'=>$request->details
         ]);
         return response()->json(["success"=>"successful"],200);
+       }else{
+        return response()->json(['error' => 'please input correct details'], 404);
+
+       }
+     
      }
 
       public function reproduction(reproductionreq $request){
-        Reproduction::create([
-            'reproductionid'=>$request->reproductionid,
-            'animal_animalid'=>$request->animal_animalid,
-            'breedingdate'=>$request->breedingdate,
-            'pregnancycheckdate'=>$request->pregnancycheckdate,
-             'outcome'=>$request->outcome,
-            'birtheventdate'=>$request->birtheventdate,
-        ]);
-        return response()->json(["success"=>"successful"],200);
+        $animal = optional(Animal::where('animalid', $request->animal_animalid))->id;
+        if($animal){
+            Reproduction::create([
+                'reproductionid'=>$request->reproductionid,
+                'animal_animalid'=>$animal,
+                'breedingdate'=>$request->breedingdate,
+                'pregnancycheckdate'=>$request->pregnancycheckdate,
+                 'outcome'=>$request->outcome,
+                'birtheventdate'=>$request->birtheventdate,
+            ]);
+            return response()->json(["success"=>"successful"],200);
+        }else{
+            return response()->json(['error' => 'please input correct details'], 404);
+        }
+     
       }
 
       public function production(productionreq $request){
+        $animal = optional(Animal::where('animalid', $request->animal_animalid))->id;
+        if($animal){
          Production::create([
             'productionid'=>$request->productionid,
-            'animal_animalid'=>$request->animal_animalid,
+            'animal_animalid'=>$animal,
             'date_of_producation'=>$request->date_of_producation,
             'production_type'=>$request->production_type,
                'quantity'=>$request->quantity,
               'weight'=>$request->weight,
          ]);
          return response()->json(["success"=>"successfull"],200);
+        }else{
+            return response()->json(['error' => 'please input correct details'], 404);
+        }
       }
 
       public function feed(feedreq $request){
@@ -145,48 +164,70 @@ class PostController extends Controller
       }
 
       public function feedingschedule(feedingschedulereq $request){
+        $animal = optional(Animal::where('animalid', $request->animal_animalid))->id;
+        $feed = optional(Feed::where('feedid', $request->feed_feedid))->id??"";
+        if($animal){
         FeedingSchedule::create([
             'scheduleid'=>$request->scheduleid,
-            'animal_animalid'=>$request->animal_animalid,
-            'feed_feedid'=>$request->feed_feedid,
+            'animal_animalid'=>$animal,
+            'feed_feedid'=>$feed,
              'date_of_feeding'=>$request->date_of_feeding,
                'quantity'=>$request->quantity
         ]);
         return response()->json(["success"=>"successfull"],200);
+     }else{
+        return response()->json(['error' => 'please input correct details'], 404);
+       }
       }
 
       public function financialrecord(financialrecordreq $request){
-       FinancialRecord::create([
-        'recordid'=>$request->recordid,
-        'farm_farmid'=>$request->farm_farmid,
-         'type_of_finance'=>$request->type_of_finance,
-         'amount'=>$request->amount,
-       'date_of_finance'=>$request->date_of_finance,
-         'details'=>$request->details
-       ]);
-       return response()->json(["success"=>"successfull"],200);
+       $farm = optional(Farm::where('farmid', $request->farm_farmid))->id??"";
+       if($farm){
+        FinancialRecord::create([
+            'recordid'=>$request->recordid,
+            'farm_farmid'=>$farm,
+             'type_of_finance'=>$request->type_of_finance,
+             'amount'=>$request->amount,
+           'date_of_finance'=>$request->date_of_finance,
+             'details'=>$request->details
+           ]);
+           return response()->json(["success"=>"successfull"],200);
+       }else{
+        return response()->json(['error' => 'please input correct details'], 404);
+       }
+     
       }
 
       public function animallocation(animallocationreq $request){
-        AnimalLocation::create([
-            'locationid'=>$request->locationid,
-            'farm_farmid'=>$request->farm_farmid,
-             'animal_animalid'=>$request->animal_animalid,
-            'locationdetails'=>$request->locationdetails,
-              'datemovedin'=>$request->datemovedin,
-              'datemovedout'=>$request->datemovedout,
-        ]);
-        return response()->json(["success"=>"successfull"],200);
+        $farm = optional(Farm::where('farmid', $request->farm_farmid))->id??"";
+        $animal = optional(Animal::where('animalid', $request->animal_animalid))->id??"";
+         if($farm && $animal){
+            AnimalLocation::create([
+                'locationid'=>$request->locationid,
+                'farm_farmid'=>$farm,
+                 'animal_animalid'=>$animal,
+                'locationdetails'=>$request->locationdetails,
+                  'datemovedin'=>$request->datemovedin,
+                  'datemovedout'=>$request->datemovedout,
+            ]);
+            return response()->json(["success"=>"successfull"],200);
+         }else{
+            return response()->json(['error' => 'please input correct details'], 404);
+           }
       }
 
       public function genealogy(Request $request){
-        genealogy::create([
-            'genealogyid'=>$request->genealogyid,
-            'animal_animalid'=>$request->animal_animalid,
-           'parenttype'=>$request->parenttype,
-            'parentanimalid'=>$request->parentanimalid
-        ]);
-        return response()->json(["success"=>"successfull"],200);
+        $animal = optional(Animal::where('animalid', $request->animal_animalid))->id??"";
+        if($animal){
+            genealogy::create([
+                'genealogyid'=>$request->genealogyid,
+                'animal_animalid'=>$animal,
+               'parenttype'=>$request->parenttype,
+                'parentanimalid'=>$request->parentanimalid
+            ]);
+            return response()->json(["success"=>"successfull"],200);
+        }
+     
       }
 }
 

@@ -19,8 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::post("/farminfo", [PostController::class, "farminfo"]);
+Route::get("/hello", function(){
+ return response()->json(["success"=>"hello how are you"]);
+});
+Route::post("farminfo", [PostController::class, "farminfo"]);
 Route::post("/animaldetails", [PostController::class, "animaldetails"]);
 
 Route::post("/species", [PostController::class, "species"]);

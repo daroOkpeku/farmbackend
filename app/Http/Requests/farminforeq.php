@@ -22,18 +22,21 @@ class farminforeq extends FormRequest
     public function rules(): array
     {
         return [
-            "animalid"=>'required|alpha_dash',
+            "animalid"=>'required|regex:/^[a-zA-Z0-9- ]*$/',
             "farmname"=>'required|string',
-            "farmid"=>"required|alpha_dash",
+            "farmid"=>"required|regex:/^[a-zA-Z0-9- ]*$/",
             "location"=>"required|string",
             "owner"=>"required|string",
-            "size"=>"required|alpha_num",
+            "size"=>"required|regex:/^[a-zA-Z0-9- ]*$/",
             "farmtype"=>"required|string",
 
-            "farm_farmid"=>"required|alpha_dash",
-            "phone"=>"required|alpha_dash",
-            "email"=>"required|email|unique:farmdetails,email",
-            "website"=>"required|url",
+            // "farm_farmid"=>"nullable|regex:/^[a-zA-Z0-9- ]*$/",
+            "phone"=>"nullable|regex:/^[a-zA-Z0-9 ]*$/",
+            "email"=>'nullable|email|unique:farmdetails,email',
+            // "email"=>"email",
+            "website"=>"nullable|string",
         ];
     }
+
+
 }
