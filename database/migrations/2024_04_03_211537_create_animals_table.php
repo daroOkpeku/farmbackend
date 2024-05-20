@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('specie_speciesid')->constrained('species');
             $table->foreignId('breed_breedid')->constrained('breeds');
             $table->tinyText('tagnumber');
-            $table->tinyText('sex');
+            // $table->tinyText('sex');
+            $table->enum('sex', ['Male', 'Female']);
             $table->tinyText('date_of_birth');
             $table->tinyText('acquisition_date');
             $table->timestamps();

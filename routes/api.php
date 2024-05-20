@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GetController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("/hello", function(){
  return response()->json(["success"=>"hello how are you"]);
 });
+
+Route::controller(GetController::class)->group(function(){
+Route::get("/totals", "totals");
+Route::get("/profile_and_loss", "profile_and_loss");
+Route::get("/animaldata", "animaldata");
+Route::get("/gender", "gender");
+Route::get("/animaldatatable", "animaldatatable");
+});
 Route::post("farminfo", [PostController::class, "farminfo"]);
 Route::post("/animaldetails", [PostController::class, "animaldetails"]);
-
 Route::post("/species", [PostController::class, "species"]);
 Route::post("/breed", [PostController::class, "breed"]);
 Route::post("/healthrecord", [PostController::class, "healthrecord"]);
