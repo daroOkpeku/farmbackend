@@ -70,7 +70,7 @@ class GetController extends Controller
         $animal =  Animal::orderBy('created_at', 'desc')->get();
        $answer = animalresource::collection($animal)->resolve();
        $ans = intval($request->get('number'));
-       $pagdata =  $this->paginate($answer , 8, $ans);
+       $pagdata =  $this->paginate($answer, 8, $ans);
        return response()->json(["success"=>$pagdata]);
   }
 }
