@@ -43,4 +43,5 @@ Route::post("/feedingschedule", [PostController::class, "feedingschedule"]);
 Route::post("/financialrecord", [PostController::class, "financialrecord"]);
 Route::post("/animallocation", [PostController::class, "animallocation"]);
 Route::post("/genealogy", [PostController::class, "genealogy"]);
+Route::post("/showtest", [PostController::class, "showtest"]);
 
