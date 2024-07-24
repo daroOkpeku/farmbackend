@@ -16,6 +16,18 @@ use App\Models\FinancialRecord;
 use App\Models\genealogy;
 use App\Models\AnimalLocation;
 use App\Http\Repository\Contracts\FarmInterface;
+use App\Jobs\ProcessAnimalDetails;
+use App\Jobs\ProcessAnimalLocation;
+use App\Jobs\ProcessBreed;
+use App\Jobs\ProcessFarmInfo;
+use App\Jobs\ProcessFeed;
+use App\Jobs\ProcessFeedSchedule;
+use App\Jobs\ProcessFinancialRecord;
+use App\Jobs\ProcessGenealogy;
+use App\Jobs\ProcessHealthRecord;
+use App\Jobs\ProcessProduction;
+use App\Jobs\ProcessReproduction;
+use App\Jobs\ProcessSpecial;
 
 class FarmRepository implements FarmInterface{
 
@@ -23,6 +35,7 @@ class FarmRepository implements FarmInterface{
     public function farminfo($request){
 
         try {
+            $farm = null;
            DB::transaction(function() use($request){
                $farm = Farm::create([
               'animalid'=>$request->animalid,
@@ -42,6 +55,8 @@ class FarmRepository implements FarmInterface{
                         'website'=>$request->website,
                       ]);
           });
+
+          ProcessFarmInfo::dispatchAfterResponse($farm);
           return response()->json(['success'=>'successfully created'],200);
 
         } catch (\Throwable   $e) {
@@ -56,15 +71,7 @@ class FarmRepository implements FarmInterface{
         public function animaldetails($request){
             $specie = Species::where('speciesid', $request->specie_speciesid)->first();
             if($specie){
-                Animal::create([
-                    "animalid"=>$request->animalid,
-                    "specie_speciesid"=>$specie->id,
-                    "breed_breedid"=>$request->breed_breedid,
-                    "tagnumber"=>$request->tagnumber,
-                    "sex"=>$request->sex,
-                    "date_of_birth"=>$request->date_of_birth,
-                    "acquisition_date"=>$request->acquisition_date,
-                ]);
+                ProcessAnimalDetails::dispatchAfterResponse($request->animalid, $specie->id, $request->breed_breedid, $request->tagnumber, $request->sex, $request->date_of_birth, $request->acquisition_date);
                return response()->json(['success'=>'successful'],200);
             }else{
                 return response()->json(['error' => 'Species not found'], 404);
@@ -75,20 +82,13 @@ class FarmRepository implements FarmInterface{
 
 
          public function species($request){
-            Species::create([
-               "speciesid"=>$request->speciesid,
-               "speciesname"=>$request->speciesname
-            ]);
+            ProcessSpecial::dispatchAfterResponse($request->speciesid, $request->speciesname);
             return response()->json(["success"=>"successful"],200);
         }
 
 
         public function breed($request){
-            Breed::create([
-               "breedid"=>$request->breedid,
-               "breedname"=>$request->breedname,
-               "species_speciesid"=>$request->species_speciesid
-            ]);
+            ProcessBreed::dispatchAfterResponse($request->breedid, $request->breedname, $request->species_speciesid);
             return response()->json(['success'=>"successful"],200);
         }
 
@@ -96,13 +96,7 @@ class FarmRepository implements FarmInterface{
         public function healthrecord($request){
             $animal = Animal::where('animalid', $request->animal_animalid)->first();
             if($animal){
-             HealthRecord::create([
-                 'recordid'=>$request->recordid,
-                 'animal_animalid'=>$animal->id,
-                 'event_date'=>$request->event_date,
-                  'type_event'=>$request->type_event,
-                 'details'=>$request->details
-             ]);
+             ProcessHealthRecord::dispatchAfterResponse($request->recordid, $animal->id, $request->event_date, $request->type_event, $request->details);
              return response()->json(["success"=>"successful"],200);
             }else{
              return response()->json(['error' => 'please input correct details'], 404);
@@ -114,14 +108,7 @@ class FarmRepository implements FarmInterface{
           public function reproduction($request){
             $animal = Animal::where('animalid', $request->animal_animalid)->first();
             if($animal){
-                Reproduction::create([
-                    'reproductionid'=>$request->reproductionid,
-                    'animal_animalid'=>$animal->id,
-                    'breedingdate'=>$request->breedingdate,
-                    'pregnancycheckdate'=>$request->pregnancycheckdate,
-                     'outcome'=>$request->outcome,
-                    'birtheventdate'=>$request->birtheventdate,
-                ]);
+                ProcessReproduction::dispatchAfterResponse($request->reproductionid, $animal->id, $request->breedingdate, $request->pregnancycheckdate, $request->outcome, $request->birtheventdate );
                 return response()->json(["success"=>"successful"],200);
             }else{
                 return response()->json(['error' => 'please input correct details'], 404);
@@ -133,14 +120,7 @@ class FarmRepository implements FarmInterface{
           public function production($request){
             $animal = Animal::where('animalid', $request->animal_animalid)->first();
             if($animal){
-             Production::create([
-                'productionid'=>$request->productionid,
-                'animal_animalid'=>$animal->id,
-                'date_of_producation'=>$request->date_of_producation,
-                'production_type'=>$request->production_type,
-                   'quantity'=>$request->quantity,
-                  'weight'=>$request->weight,
-             ]);
+             ProcessProduction::dispatchAfterResponse($request->productionid, $animal->id, $request->date_of_producation, $request->production_type, $request->quantity, $request->weight);
              return response()->json(["success"=>"successfull"],200);
             }else{
                 return response()->json(['error' => 'please input correct details'], 404);
@@ -150,11 +130,7 @@ class FarmRepository implements FarmInterface{
 
 
             public function feed( $request){
-                Feed::create([
-                    'feedid'=>$request->feedid,
-                    'feedtype'=>$request->feedtype,
-                    'feeddetails'=>$request->feeddetails
-                ]);
+                ProcessFeed::dispatchAfterResponse($request->feedid, $request->feedtype, $request->feeddetails);
                 return response()->json(["success"=>"successfull"],200);
             }
 
@@ -164,13 +140,8 @@ class FarmRepository implements FarmInterface{
                 $animal = Animal::where('animalid', $request->animal_animalid)->first();
                 $feed = Feed::where('feedid', $request->feed_feedid)->first();
                 if($animal && $feed){
-                FeedingSchedule::create([
-                    'scheduleid'=>$request->scheduleid,
-                    'animal_animalid'=>$animal->id,
-                    'feed_feedid'=>$feed->id,
-                     'date_of_feeding'=>$request->date_of_feeding,
-                       'quantity'=>$request->quantity
-                ]);
+
+                ProcessFeedSchedule::dispatchAfterResponse($request->scheduleid, $animal->id, $feed->id, $request->date_of_feeding, $request->quantity);
                 return response()->json(["success"=>"successfull"],200);
              }else{
                 return response()->json(['error' => 'please input correct details'], 404);
@@ -181,14 +152,8 @@ class FarmRepository implements FarmInterface{
               public function financialrecord($request){
                 $farm = Farm::where('farmid', $request->farm_farmid)->first();
                 if($farm){
-                 FinancialRecord::create([
-                     'recordid'=>$request->recordid,
-                     'farm_farmid'=>$farm->id,
-                      'type_of_finance'=>$request->type_of_finance,
-                      'amount'=>$request->amount,
-                    'date_of_finance'=>$request->date_of_finance,
-                      'details'=>$request->details
-                    ]);
+
+                    ProcessFinancialRecord::dispatchAfterResponse($request->recordid, $farm->id, $request->type_of_finance, $request->amount, $request->date_of_finance, $request->details);
                     return response()->json(["success"=>"successfull"],200);
                 }else{
                  return response()->json(['error' => 'please input correct details'], 404);
@@ -199,14 +164,8 @@ class FarmRepository implements FarmInterface{
                 $farm = Farm::where('farmid', $request->farm_farmid)->first();
                 $animal = Animal::where('animalid', $request->animal_animalid)->first();
                  if($farm && $animal){
-                    AnimalLocation::create([
-                        'locationid'=>$request->locationid,
-                        'farm_farmid'=>$farm->id,
-                         'animal_animalid'=>$animal->id,
-                        'locationdetails'=>$request->locationdetails,
-                          'datemovedin'=>$request->datemovedin,
-                          'datemovedout'=>$request->datemovedout,
-                    ]);
+                    ProcessAnimalLocation::dispatchAfterResponse($request->locationid, $farm->id, $animal->id, $request->locationdetails, $request->datemovedin, $request->datemovedout);
+
                     return response()->json(["success"=>"successfull"],200);
                  }else{
                     return response()->json(['error' => 'please input correct details'], 404);
@@ -217,12 +176,8 @@ class FarmRepository implements FarmInterface{
               public function genealogy($request){
                 $animal = Animal::where('animalid', $request->animal_animalid)->first();
                 if($animal){
-                    genealogy::create([
-                        'genealogyid'=>$request->genealogyid,
-                        'animal_animalid'=>$animal->id,
-                       'parenttype'=>$request->parenttype,
-                        'parentanimalid'=>$request->parentanimalid
-                    ]);
+
+                    ProcessGenealogy::dispatchAfterResponse($request->genealogyid, $animal->id, $request->parenttype, $request->parentanimalid);
                     return response()->json(["success"=>"successfull"],200);
                 }
 
