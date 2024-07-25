@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\genealogy;
+use App\Models\Genealogy;
 class ProcessGenealogy implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -31,7 +31,7 @@ class ProcessGenealogy implements ShouldQueue
      */
     public function handle(): void
     {
-        genealogy::create([
+        Genealogy::create([
             'genealogyid'=>$this->genealogyid,
             'animal_animalid'=>$this->id,
            'parenttype'=>$this->parenttype,

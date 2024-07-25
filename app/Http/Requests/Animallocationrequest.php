@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class speciesreq extends FormRequest
+class Animallocationrequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class speciesreq extends FormRequest
     public function rules(): array
     {
         return [
-           "speciesid"=>"required|alpha_dash",
-           "speciesname"=>"required|string",
+            "locationid"=>"required|alpha_dash",
+            "farm_farmid"=>"required|alpha_dash",
+            "animal_animalid"=>"required|alpha_dash",
+            "locationdetails"=>"required|string",
+            "datemovedin"=>"required|date",
+            "datemovedout"=>"required|date"
         ];
     }
 }

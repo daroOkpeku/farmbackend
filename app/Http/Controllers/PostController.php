@@ -1,17 +1,17 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Requests\animaldetailsreq;
-use App\Http\Requests\animallocationreq;
-use App\Http\Requests\breedreq;
-use App\Http\Requests\farminforeq;
-use App\Http\Requests\feedingschedulereq;
-use App\Http\Requests\feedreq;
-use App\Http\Requests\financialrecordreq;
-use App\Http\Requests\healthrecordreq;
-use App\Http\Requests\productionreq;
-use App\Http\Requests\reproductionreq;
-use App\Http\Requests\speciesreq;
+use App\Http\Requests\Animaldetailsrequest;
+use App\Http\Requests\Animallocationrequest;
+use App\Http\Requests\Breedrequest;
+use App\Http\Requests\Farminforequest;
+use App\Http\Requests\Feedingschedulerequest;
+use App\Http\Requests\Feedrequest;
+use App\Http\Requests\Financialrecordrequest;
+use App\Http\Requests\Healthrecordrequest;
+use App\Http\Requests\Productionrequest;
+use App\Http\Requests\Reproductionrequest;
+use App\Http\Requests\Speciesrequest;
 use Illuminate\Http\Request;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
@@ -30,53 +30,53 @@ class PostController extends Controller
      $this->testinterface->info($request);
     }
 
-     public function farminfo(farminforeq $request){
+     public function farminfo(Farminforequest $request){
        return $this->farminterface->farminfo($request);
 
 
      }
 
 
-     public function animaldetails(animaldetailsreq $request){
+     public function animaldetails(Animaldetailsrequest $request){
        return $this->farminterface->animaldetails($request);
 
 
      }
 
 
-     public function species(speciesreq $request){
+     public function species(Speciesrequest $request){
         return $this->farminterface->species($request);
      }
 
-     public function breed(breedreq $request){
+     public function breed(Breedrequest $request){
        return $this->farminterface->breed($request);
      }
 
-     public function healthrecord(healthrecordreq $request){
+     public function healthrecord(Healthrecordrequest $request){
        return $this->farminterface->healthrecord($request);
      }
 
-      public function reproduction(reproductionreq $request){
+      public function reproduction(Reproductionrequest $request){
        return $this->farminterface->reproduction($request);
       }
 
-      public function production(productionreq $request){
+      public function production(Productionrequest $request){
          return $this->farminterface->production($request);
       }
 
-      public function feed(feedreq $request){
+      public function feed(Feedrequest $request){
         return $this->farminterface->feed($request);
       }
 
-      public function feedingschedule(feedingschedulereq $request){
+      public function feedingschedule(Feedingschedulerequest $request){
         return $this->farminterface->feedingschedule($request);
       }
 
-      public function financialrecord(financialrecordreq $request){
+      public function financialrecord(Financialrecordrequest $request){
         return $this->farminterface->financialrecord($request);
       }
 
-      public function animallocation(animallocationreq $request){
+      public function animallocation(Animallocationrequest $request){
         return $this->farminterface->animallocation($request);
       }
 

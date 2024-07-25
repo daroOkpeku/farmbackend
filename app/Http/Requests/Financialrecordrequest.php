@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class feedingschedulereq extends FormRequest
+class Financialrecordrequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,12 @@ class feedingschedulereq extends FormRequest
     public function rules(): array
     {
         return [
-            "scheduleid"=>"required|alpha_dash",
-            "animal_animalid"=>"required|alpha_dash",
-            "feed_feedid"=>"required|alpha_dash",
-            "date_of_feeding"=>"required|date",
-            "quantity"=>"required|alpha_num"
+            "recordid"=>"required|alpha_dash",
+            "farm_farmid"=>"required|alpha_dash",
+            "type_of_finance"=>"required|string",
+            "amount"=>"required|alpha_num",
+            "date_of_finance"=>"required|date",
+            "details"=>"required|string"
         ];
     }
 }

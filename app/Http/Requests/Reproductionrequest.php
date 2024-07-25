@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class breedreq extends FormRequest
+class Reproductionrequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,12 @@ class breedreq extends FormRequest
     public function rules(): array
     {
         return [
-            "breedid"=>"required|alpha_dash",
-            "breedname"=>"required|string",
-            "species_speciesid"=>"required|alpha_dash",
+            "reproductionid"=>"required|alpha_num",
+            "animal_animalid"=>"required|alpha_dash",
+            "breedingdate"=>"required|date",
+            "pregnancycheckdate"=>"required|date",
+            "outcome"=>"required|string",
+            "birtheventdate"=>"required|date"
         ];
     }
 }

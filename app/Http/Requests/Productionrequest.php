@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class healthrecordreq extends FormRequest
+class Productionrequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,12 @@ class healthrecordreq extends FormRequest
     public function rules(): array
     {
         return [
-            "recordid"=>"required|alpha_dash",
+            "productionid"=>"required|alpha_dash",
             "animal_animalid"=>"required|alpha_dash",
-            "event_date"=>"required|date",
-            "type_event"=>"required|string",
-            "details"=>"required|string"
+            "date_of_producation"=>"required|date",
+            "production_type"=>"required|string",
+            "quantity"=>"required|alpha_num",
+            "weight"=>"required|alpha_dash",
         ];
     }
 }
