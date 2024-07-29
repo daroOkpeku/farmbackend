@@ -12,7 +12,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+    // do not use  $schedule->command('update:models')->everyFiveSeconds();
+      $schedule->command('update:breed')->everyFiveSeconds();
+      $schedule->command('update:animal')->everyFiveSeconds();
+      $schedule->command('update:farm')->everyFiveSeconds();
+    //   $schedule->command('update:health')->everyFiveSeconds();
+
     }
 
     /**

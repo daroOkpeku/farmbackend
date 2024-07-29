@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->tinyText('animalid');
-            $table->foreignId('specie_speciesid')->constrained('species');
-            $table->foreignId('breed_breedid')->constrained('breeds');
+            // $table->string('species_speciesid');
+            $table->string('breed_breedid');
             $table->tinyText('tagnumber');
-            // $table->tinyText('sex');
             $table->enum('sex', ['Male', 'Female']);
             $table->tinyText('date_of_birth');
             $table->tinyText('acquisition_date');
             $table->timestamps();
+
+            // $table->foreign('species_speciesid')->references('speciesid')->on('species')->onDelete('cascade');
+            $table->foreign('breed_breedid')->references('breedid')->on('breeds')->onDelete('cascade');
+
         });
     }
 

@@ -9,16 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
+
     public function up(): void
-    {
-        Schema::create('breeds', function (Blueprint $table) {
-            $table->id();
-            $table->tinyText('breedid');
-            $table->tinyText('breedname');
-            $table->foreignId('species_speciesid')->constrained('species');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('breeds', function (Blueprint $table) {
+        $table->id();
+        // $table->string('breedid');
+        $table->string('breedid')->unique();
+        $table->string('breedname');
+        // $table->string('species_speciesid');
+        $table->timestamps();
+
+        // $table->foreign('species_speciesid')->references('speciesid')->on('species')->onDelete('cascade');
+    });
+}
 
     /**
      * Reverse the migrations.

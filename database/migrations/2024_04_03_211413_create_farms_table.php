@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('farms', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('animalid')->unique();
+            // $table->tinyText('animalid')->unique();
             $table->mediumText('farmname');
             $table->tinyText('farmid')->unique();
             $table->tinyText('location');
             $table->tinyText('owner');
             $table->tinyText('size');
             $table->tinyText('farmtype');
+            $table->tinyText('contact_details');
             $table->timestamps();
         });
     }

@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('vaccinationschedules', function (Blueprint $table) {
             $table->id();
             $table->tinyText('vaccinationscheduleid');
-            $table->foreignId('species_speciesid')->constrained('species');
-            $table->foreignId('breed_breedid')->constrained('breeds')->nullable();
+            // $table->foreignId('species_speciesid')->constrained('species');
+            // $table->string('species_speciesid');
+            // $table->foreignId('breed_breedid')->constrained('breeds')->nullable();
+            $table->string('breed_breedid');
             $table->tinyText('vaccinename');
             $table->tinyText('frequency');
             $table->tinyText('dose');
@@ -23,6 +25,10 @@ return new class extends Migration
             $table->tinyText('statutory_requirement');
             $table->longText('additional_notes');
             $table->timestamps();
+
+            // $table->foreign('species_speciesid')->references('speciesid')->on('species')->onDelete('cascade');
+            $table->foreign('breed_breedid')->references('breedid')->on('breeds')->onDelete('cascade');
+
         });
     }
 

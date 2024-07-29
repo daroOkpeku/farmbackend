@@ -12,6 +12,6 @@ class Breed extends Model
     protected $fillable = [
        'breedid',
        'breedname',
-       'species_speciesid',
+
     ];
 }

@@ -9,6 +9,8 @@ use App\Models\Production;
 use App\Models\Species;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Req;
 class GetController extends Controller
 {
 
@@ -73,4 +75,24 @@ class GetController extends Controller
        $pagdata =  $this->paginate($answer, 8, $ans);
        return response()->json(["success"=>$pagdata]);
   }
+
+
+   public function test_api(){
+    $client = new Client();
+    $headers = [
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+      'client-id' => 'CLIENT_17212271759974Q9XG61BT3WQCR6S6WD4AWQZY4',
+      'api-key' => 'y6brycnm2mso1mqlbbmc3cz4mjkf810jqem2661u'
+    ];
+    $request = new Req('GET', 'https://www.test-api.naitsng.com/api/integration/animal-table?page=1&limit=500', $headers);
+    $res = $client->sendAsync($request)->wait();
+    $body = $res->getBody()->getContents();
+    $data = json_decode($body, true);
+    $items =  $data['data']['data'];
+    return response()->json($items);
+    // foreach ($items as $item) {
+    //     return response()->json($item);
+    // }
+   }
 }
