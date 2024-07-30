@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\animalresource;
 use App\Models\Animal;
+use App\Models\Breed;
 use App\Models\FinancialRecord;
 use App\Models\Production;
-use App\Models\Species;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -16,9 +16,8 @@ class GetController extends Controller
 
 
     public function totals(Request $request){
-
        $animal = count(Animal::all());
-       $group =count(Species::select('speciesname')->distinct()->get());
+       $group =count(Breed::select('breedid')->distinct()->get());
        $producation = count(Production::all());
        $expanse = count(FinancialRecord::where("type_of_finance", "expense")->get());
        $arrtotals = array(
@@ -42,12 +41,14 @@ class GetController extends Controller
         $expense = $month->where('type_of_finance', 'expense')->sum('amount');
         return ['income' => $income, 'expense' => $expense];
     });
-      $arr = [];
+      $arr = array();
       foreach ($monthlySums as $month => $sums) {
+
         $arr[] = [
-            "month" => $month,
-            "income" => $sums['income'],
-            "expense" => $sums['expense']
+            "name" => $month,
+            "profit" => $sums['income'],
+            "expense" => $sums['expense'],
+            "amt"=>$sums['date_of_finance']
         ];
     }
 
@@ -55,9 +56,10 @@ class GetController extends Controller
     }
 
     public function animaldata(){
-          $animal =  Animal::orderBy('created_at', 'desc')->take(4)->get();
-         $answer = animalresource::collection($animal)->resolve();
-         return response()->json(["success"=>$answer]);
+          $animals =  Animal::with('animalData')->orderBy('created_at', 'desc')->take(8)->get();
+         $answer = animalresource::collection($animals);
+
+          return response()->json(["success"=>$answer]);
     }
 
     public function gender(){

@@ -17,4 +17,8 @@ class Animal extends Model
          'date_of_birth',
        'acquisition_date'
     ];
+
+    public function animalData(){
+        return $this->belongsTo(Breed::class, 'breed_breedid', 'breedid');
+    }
 }

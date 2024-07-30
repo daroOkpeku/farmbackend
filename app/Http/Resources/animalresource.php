@@ -19,11 +19,13 @@ class animalresource extends JsonResource
     {
         return [
             'animalid'=>$this->animalid,
-             "animal_name"=>optional(Species::where("specie_speciesid", $this->specie_speciesid)->first())->speciesname,
+            //  "animal_name"=>,
             //  "size"=>optional(Farm::where("animalid", $this->specie_speciesid)->first())->speciesname,
-             'status'=>optional(HealthRecord::where("animal_animalid", $this->animalid)->first())->type_event,
+            //  'status'=>optional(HealthRecord::where("animal_animalid", $this->animalid)->first())->type_event,
+              'breeddata'=>Breedextendresources::make($this->whenLoaded('animalData')),
                'sex'=>$this->sex,
                'date_of_birth'=>$this->date_of_birth,
+
         ];
     }
 }

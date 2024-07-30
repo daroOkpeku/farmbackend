@@ -14,4 +14,9 @@ class Breed extends Model
        'breedname',
 
     ];
+
+
+    public function breedData(){
+        return $this->belongsTo(Breed::class, 'breedid', 'breed_breedid');
+    }
 }
