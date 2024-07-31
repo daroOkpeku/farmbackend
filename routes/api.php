@@ -32,6 +32,7 @@ Route::get("/gender", "gender");
 Route::get("/animaldatatable", "animaldatatable");
 Route::get("/test_api", "test_api");
 });
+
 Route::post("farminfo", [PostController::class, "farminfo"]);
 Route::post("/animaldetails", [PostController::class, "animaldetails"]);
 Route::post("/species", [PostController::class, "species"]);
@@ -45,4 +46,8 @@ Route::post("/financialrecord", [PostController::class, "financialrecord"]);
 Route::post("/animallocation", [PostController::class, "animallocation"]);
 Route::post("/genealogy", [PostController::class, "genealogy"]);
 Route::post("/showtest", [PostController::class, "showtest"]);
+
+Route::controller(PostController::class)->group(function(){
+    Route::delete('/deleteanimal', 'deleteAnimal');
+});
 

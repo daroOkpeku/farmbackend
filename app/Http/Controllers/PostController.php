@@ -15,6 +15,8 @@ use App\Http\Requests\Speciesrequest;
 use Illuminate\Http\Request;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
+use App\Http\Requests\Deleterequest;
+
 class PostController extends Controller
 {
      protected $testinterface;
@@ -82,6 +84,10 @@ class PostController extends Controller
 
       public function genealogy(Request $request){
        return $this->farminterface->genealogy($request);
+      }
+
+      public function deleteAnimal(Deleterequest $request){
+        return $this->testinterface->deleteAnimal($request);
       }
 }
 

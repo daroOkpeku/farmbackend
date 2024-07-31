@@ -8,7 +8,7 @@ use App\Models\Species;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class animalresource extends JsonResource
+class Animalresource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,15 +17,13 @@ class animalresource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'animalid'=>$this->animalid,
-            //  "animal_name"=>,
-            //  "size"=>optional(Farm::where("animalid", $this->specie_speciesid)->first())->speciesname,
-            //  'status'=>optional(HealthRecord::where("animal_animalid", $this->animalid)->first())->type_event,
-              'breeddata'=>Breedextendresources::make($this->whenLoaded('animalData')),
-               'sex'=>$this->sex,
-               'date_of_birth'=>$this->date_of_birth,
 
+        return [
+         'id'=>$this->id,
+         'tagnumber'=>$this->tagnumber,
+         'date_of_birth'=>$this->date_of_birth,
+         'sex'=>$this->sex,
+          'breeddata'=>Breedextendresources::make($this->whenLoaded('animalData')),
         ];
     }
 }

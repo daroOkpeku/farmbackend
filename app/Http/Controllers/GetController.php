@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\animalresource;
+use App\Http\Resources\Animalresource;
 use App\Models\Animal;
 use App\Models\Breed;
 use App\Models\FinancialRecord;
@@ -64,18 +64,19 @@ class GetController extends Controller
 
     public function gender(){
         $animal = count(Animal::all());
-        $male = count(Animal::where("sex", 'Male')->get())/$animal;
-        $female = count(Animal::where("sex", 'Female')->get())/$animal;
+        $male = count(Animal::where("sex", 'Male')->get())/$animal * 100;
+        $female = count(Animal::where("sex", 'Female')->get())/$animal * 100;
         $percent = array($male, $female);
-        return response()->json(['success'=>$percent]);
+        return response()->json(['success'=>$percent, 'total'=>$animal]);
     }
 
     public function animaldatatable(Request $request){
-        $animal =  Animal::orderBy('created_at', 'desc')->get();
-       $answer = animalresource::collection($animal)->resolve();
-       $ans = intval($request->get('number'));
-       $pagdata =  $this->paginate($answer, 8, $ans);
-       return response()->json(["success"=>$pagdata]);
+        $animals =  Animal::with('animalData')->orderBy('created_at', 'desc')->paginate(8);
+        return Animalresource::collection($animals)->additional(['success'=>true]);
+
+    //    $ans = intval($request->get('number'));
+    //    $pagdata =  $this->paginate($answer, 8, $ans);
+      // return response()->json(["success"=>$pagdata]);
   }
 
 

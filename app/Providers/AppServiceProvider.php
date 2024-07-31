@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\FarmRepository;
 use App\Http\Repository\TestRepository;
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
     // i have to bind the TestInface with the TestRepository
       $this->app->bind(TestInterface::class, TestRepository::class);
-      $this->app->bind(FarmRepository::class, FarmRepository::class);
+      $this->app->bind(FarmInterface::class, FarmRepository::class);
     }
 
     /**
