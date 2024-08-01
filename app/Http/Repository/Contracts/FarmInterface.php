@@ -17,4 +17,6 @@ interface FarmInterface{
     public function financialrecord($request);
     public function animallocation($request);
     public function genealogy($request);
+    public function editanimaldetails($request);
+    public function photo($request);
 }

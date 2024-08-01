@@ -89,6 +89,11 @@ class GetController extends Controller
         return response()->json(['success'=>$breedlist]);
      }
 
+     public function animaldetailsget(Request $request){
+     $animal = Animal_livestock::with('FarmConnect')->where('tag_id', $request->get('tagnumber'))->first();
+     return response()->json(['success'=>$animal]);
+     }
+
    public function test_api(){
     // $client = new Client();
     // $headers = [

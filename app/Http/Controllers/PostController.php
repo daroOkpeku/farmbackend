@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
+use App\Http\Requests\Photorequest;
 
 class PostController extends Controller
 {
@@ -41,8 +42,10 @@ class PostController extends Controller
 
      public function animaldetails(Animaldetailsrequest $request){
        return $this->farminterface->animaldetails($request);
+     }
 
-
+     public function editanimaldetails(Animaldetailsrequest $request){
+      return $this->farminterface->editanimaldetails($request);
      }
 
 
@@ -88,6 +91,10 @@ class PostController extends Controller
 
       public function deleteAnimal(Deleterequest $request){
         return $this->testinterface->deleteAnimal($request);
+      }
+
+      public function photo(Photorequest $request){
+        return $this->farminterface->photo($request);
       }
 }
 

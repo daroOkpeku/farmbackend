@@ -33,6 +33,7 @@ Route::get("/animaldatatable", "animaldatatable");
 Route::get("/test_api", "test_api");
 Route::get("/farmnames", "farmnames");
 Route::get("/breednames", "breednames");
+Route::get('/animaldetailsget', 'animaldetailsget');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
@@ -51,5 +52,7 @@ Route::post("/showtest", [PostController::class, "showtest"]);
 
 Route::controller(PostController::class)->group(function(){
     Route::delete('/deleteanimal', 'deleteAnimal');
+    Route::put('/editanimaldetails', 'editanimaldetails');
+    Route::put('/photo', 'photo');
 });
 
