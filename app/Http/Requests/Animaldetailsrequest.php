@@ -21,14 +21,16 @@ class Animaldetailsrequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            "animalid"=>"required|alpha_dash",
-            "specie_speciesid"=>"required|alpha_dash",
-            "breed_breedid"=>"required|alpha_dash",
-            "tagnumber"=>"required|alpha_dash",
+            "animal_name"=>"required|string",
+            "breed"=>"required|string",
+            "age"=>"required|string",
+            'weight'=>"required|string",
+            "tagnumber"=>"required|string",
             "sex"=>"required|string",
-            "date_of_birth"=>"required|date",
-             "acquisition_date"=>"required|data"
+            "health_status"=>"required|string",
+            "farmname"=>"required|string"
         ];
     }
 }

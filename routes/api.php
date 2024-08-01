@@ -31,6 +31,8 @@ Route::get("/animaldata", "animaldata");
 Route::get("/gender", "gender");
 Route::get("/animaldatatable", "animaldatatable");
 Route::get("/test_api", "test_api");
+Route::get("/farmnames", "farmnames");
+Route::get("/breednames", "breednames");
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);

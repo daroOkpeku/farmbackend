@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->tinyText('animalid');
-            // $table->string('species_speciesid');
+            $table->tinyText('name')->nullable();
             $table->string('breed_breedid');
             $table->tinyText('tagnumber');
             $table->enum('sex', ['Male', 'Female']);

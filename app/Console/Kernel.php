@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
       $schedule->command('update:breed')->everyFiveSeconds();
       $schedule->command('update:animal')->everyFiveSeconds();
       $schedule->command('update:farm')->everyFiveSeconds();
+      $schedule->command('update:livestock')->everyFiveSeconds();
     //   $schedule->command('update:health')->everyFiveSeconds();
 
     }

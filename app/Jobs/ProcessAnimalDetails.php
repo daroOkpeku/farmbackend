@@ -2,34 +2,42 @@
 
 namespace App\Jobs;
 
+use App\Events\AnimalProcessed;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Animal;
+use App\Models\Animal_livestock;
+use Illuminate\Support\Facades\DB;
+
 class ProcessAnimalDetails implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $animalid;
-    protected $id;
-    protected $breed_breedid;
+    protected $animal_name;
+    protected $breed;
     protected $tagnumber;
     protected $sex;
-    protected $date_of_birth;
-    protected $acquisition_date;
+    protected $age;
+    protected $weight;
+    protected $health_status;
+    protected $farmid;
+    protected $animalId;
     /**
      * Create a new job instance.
      */
-    public function __construct($animalid, $id, $breed_breedid, $tagnumber, $sex, $date_of_birth, $acquisition_date)
+    public function __construct($animal_name, $breed, $tagnumber, $sex, $age, $weight, $health_status, $farmid)
     {
-       $this->animalid = $animalid;
-       $this->id = $id;
-       $this->breed_breedid = $breed_breedid;
+       $this->animal_name = $animal_name;
+       $this->breed = $breed;
        $this->tagnumber = $tagnumber;
        $this->sex = $sex;
-       $this->date_of_birth = $date_of_birth;
-       $this->acquisition_date = $acquisition_date;
+       $this->age = $age;
+       $this->weight = $weight;
+       $this->health_status = $health_status;
+       $this->farmid = $farmid;
+
     }
 
     /**
@@ -37,14 +45,17 @@ class ProcessAnimalDetails implements ShouldQueue
      */
     public function handle(): void
     {
-        Animal::create([
-            "animalid"=>$this->animalid,
-            "specie_speciesid"=>$this->id,
-            "breed_breedid"=>$this->breed_breedid,
-            "tagnumber"=>$this->tagnumber,
-            "sex"=>$this->sex,
-            "date_of_birth"=>$this->date_of_birth,
-            "acquisition_date"=>$this->acquisition_date,
+     $animal =   Animal_livestock::create([
+            'name'=>$this->animal_name,
+            'sex'=>$this->sex,
+            'age'=>$this->age,
+            'breed'=>$this->breed,
+            'weight'=>$this->weight,
+            'tag_id'=>$this->tagnumber,
+            'health_status'=>$this->health_status,
+            'farm_farmid'=>$this->farmid
         ]);
+
+
     }
 }

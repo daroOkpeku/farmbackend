@@ -28,6 +28,8 @@ use App\Jobs\ProcessHealthRecord;
 use App\Jobs\ProcessProduction;
 use App\Jobs\ProcessReproduction;
 use App\Jobs\ProcessSpecial;
+use App\Models\Animal_livestock;
+use Illuminate\Support\Facades\Cache;
 
 class FarmRepository implements FarmInterface{
 
@@ -69,13 +71,22 @@ class FarmRepository implements FarmInterface{
 
 
         public function animaldetails($request){
-            $specie = Species::where('speciesid', $request->specie_speciesid)->first();
-            if($specie){
-                ProcessAnimalDetails::dispatchAfterResponse($request->animalid, $specie->id, $request->breed_breedid, $request->tagnumber, $request->sex, $request->date_of_birth, $request->acquisition_date);
-               return response()->json(['success'=>'successful'],200);
-            }else{
-                return response()->json(['error' => 'Species not found'], 404);
-            }
+
+              $check_tag = Animal_livestock::where('tag_id', $request->tagnumber)->exists();
+              if($check_tag){
+                return response()->json(['error' => 'this tag number exist alreadly'], 202);
+              }else{
+                $farm = Farm::where('farmname', $request->farmname)->first();
+                if($farm){
+                    ProcessAnimalDetails::dispatchAfterResponse($request->animal_name,  $request->breed, $request->tagnumber, $request->sex, $request->age, $request->weight, $request->health_status, $farm->farmid);
+
+                   return response()->json(['success'=>'successful', 'tagnumber' =>$request->tagnumber],200);
+                   }else{
+                    return response()->json(['error' => 'please input correct details'], 200);
+                   }
+              }
+
+
 
          }
 

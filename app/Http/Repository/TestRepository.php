@@ -3,7 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Http\Repository\Contracts\TestInterface;
-use App\Models\Animal;
+use App\Models\Animal_livestock;
 
 class TestRepository implements TestInterface{
 
@@ -14,9 +14,9 @@ class TestRepository implements TestInterface{
 
     public function deleteAnimal($request){
     try {
-        $animal = Animal::findOrFail($request->id);
-        // $animal->delete();
-        return response()->json(['success' => 'Animal deleted successfully', 'test'=>$animal], 200);
+        $animal = Animal_livestock::findOrFail($request->id);
+         $animal->delete();
+        return response()->json(['success' => 'Animal deleted successfully'], 200);
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
         return response()->json(['message' => 'Animal not found'], 404);
     } catch (\Exception $e) {

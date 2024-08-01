@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->tinyText('animalid')->unique();
             $table->mediumText('farmname');
-            $table->tinyText('farmid')->unique();
+            $table->string('farmid')->unique();
             $table->tinyText('location');
             $table->tinyText('owner');
             $table->tinyText('size');

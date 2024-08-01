@@ -15,8 +15,8 @@ class Breedextendresources extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'breedid'=>$this->breedid,
-            'breedname'=>$this->breedname
+            // 'breedid'=>$this->breedid,
+            'farmname'=>$this->farmname
         ];
     }
 }
