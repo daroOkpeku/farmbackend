@@ -235,38 +235,40 @@ class FarmRepository implements FarmInterface
     }
 
 
-    public function photo($request){
+    public function photo($request)
+    {
         $check_tag = Animal_livestock::where('tag_id', $request->tagnumber)->first();
-        if($check_tag){
-         $fileContent = file_get_contents($request->file('image')->getRealPath());
-          $imglink = $this->uploadImage($fileContent);
-          $check_tag->image = $imglink;
-          $check_tag->save();
-          return response()->json(['success'=>'your image have been updated', 'image'=>$imglink],200);
-        }else{
-            return response()->json([''=>'please check your input'],200);
+        if ($check_tag) {
+            $fileContent = file_get_contents($request->file('image')->getRealPath());
+            $imglink = $this->uploadImage($fileContent);
+            $check_tag->image = $imglink;
+            $check_tag->save();
+            return response()->json(['success' => 'your image have been updated', 'image' => $imglink], 200);
+        } else {
+            return response()->json(['' => 'please check your input'], 200);
         }
     }
 
-    public function feedcreate($request){
+    public function feedcreate($request)
+    {
         $random_number = rand(0, 10000);
         $sch_number = rand(0, 10000);
-      $feed =  Feed::where('feedid', $random_number)->first();
-       $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->first();
-       $check_tag =  Animal_livestock::where('tag_id', $request->tagnumber)->first();
-       if(!$feed && !$feedsch && $check_tag){
-        $animal = optional(Animal::where('name', $check_tag->name)->first())->animalid;
-        ProcessFeedCreate::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $random_number,  $sch_number, $request->cost, $animal);
-        return response()->json(['success'=>'successful', 'tagnumber'=>$request->tagnumber],200);
-       }else{
-        return response()->json(['error'=>'please check your input'],200);
-       }
-
+        $feed =  Feed::where('feedid', $random_number)->first();
+        $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->first();
+        $check_tag =  Animal_livestock::where('tag_id', $request->tagnumber)->first();
+        if (!$feed && !$feedsch && $check_tag) {
+            $animal = optional(Animal::where('name', $check_tag->name)->first())->animalid;
+            ProcessFeedCreate::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $random_number,  $sch_number, $request->cost, $animal);
+            return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber], 200);
+        } else {
+            return response()->json(['error' => 'please check your input'], 200);
+        }
     }
 
-    public function feededit($request){
-  
-         ProcessFeedEdit::dispatchAfterResponse($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $request->feedid, $request->cost);
-         return response()->json(['success'=>'Edit successful', 'tagnumber'=>$request->tagnumber], 200);
+    public function feededit($request)
+    {
+
+        ProcessFeedEdit::dispatchAfterResponse($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $request->feedid, $request->cost);
+        return response()->json(['success' => 'Edit successful', 'tagnumber' => $request->tagnumber], 200);
     }
 }

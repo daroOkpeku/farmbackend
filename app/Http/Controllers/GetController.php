@@ -12,6 +12,7 @@ use App\Models\Feed;
 use App\Models\FinancialRecord;
 use App\Models\Livestock;
 use App\Models\Production;
+use App\Models\Vaccines;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -97,12 +98,16 @@ class GetController extends Controller
 
      public function feeddetailsget(){
       $feed =  Feed::with('feedConnection')->get();
-      
       return response()->json(['success'=>$feed]);
      }
 
+     public function vaccinelist(){
+      $vaccines = Vaccines::orderBy('created_at', 'desc')->pluck('vaccine_name');
+      return response()->json(['success'=>$vaccines]);
+     }
+
      public function animalfeeddata(){
-    
+
 
         $animal_feed = [
 
@@ -111,81 +116,99 @@ class GetController extends Controller
                     "animal_name" => "Cattle",
                     "feed_name" => "Hay",
                     "quantity_kg" => 50,  // Quantity in kg
-                    "cost_naira" => 5000  // Cost in Nigerian Naira
+                    "cost_naira" => 5000,  // Cost in Nigerian Naira
+                    'type'=>'Roughages'
                 ],
+
                 [
-                    "animal_name" => "Cattle",
+                    "animal_name" => "Sheep",
                     "feed_name" => "Hay",
                     "quantity_kg" => 100,  // Quantity in kg
-                    "cost_naira" => 9500  // Cost in Nigerian Naira
+                    "cost_naira" => 9500,  // Cost in Nigerian Naira
+                    'type'=>'Roughages'
                 ],
                 [
-                    "animal_name" => "Cattle",
+                    "animal_name" => "Goat",
                     "feed_name" => "Hay",
                     "quantity_kg" => 200,  // Quantity in kg
-                    "cost_naira" => 18000  // Cost in Nigerian Naira
+                    "cost_naira" => 18000,  // Cost in Nigerian Naira
+                    'type'=>'Roughages'
                 ]
+                // [
+                //     "animal_name" => "Cattle",
+                //     "feed_name" => "Hay",
+                //     "quantity_kg" => 100,  // Quantity in kg
+                //     "cost_naira" => 9500,  // Cost in Nigerian Naira
+                //     'type'=>'Roughages'
+                // ],
+                // [
+                //     "animal_name" => "Cattle",
+                //     "feed_name" => "Hay",
+                //     "quantity_kg" => 200,  // Quantity in kg
+                //     "cost_naira" => 18000,  // Cost in Nigerian Naira
+                //     'type'=>'Roughages'
+                // ]
                 ],
-                [
-               [
-                    "animal_name" => "Pig",
-                    "feed_name" => "Pig Feed",
-                    "quantity_kg" => 30,  // Quantity in kg
-                    "cost_naira" => 3000  // Cost in Nigerian Naira
-               ],
-               [
-                    "animal_name" => "Pig",
-                    "feed_name" => "Pig Feed",
-                    "quantity_kg" => 60,  // Quantity in kg
-                    "cost_naira" => 5800  // Cost in Nigerian Naira
-               ],
-                [
-                    "animal_name" => "Pig",
-                    "feed_name" => "Pig Feed",
-                    "quantity_kg" => 120,  // Quantity in kg
-                    "cost_naira" => 11000  // Cost in Nigerian Naira
-                ]
-                ],
-               [
-                [
-                    "animal_name" => "Goat",
-                    "feed_name" => "Grass",
-                    "quantity_kg" => 20,  // Quantity in kg
-                    "cost_naira" => 2000  // Cost in Nigerian Naira
-                ],
-               [
-                    "animal_name" => "Goat",
-                    "feed_name" => "Grass",
-                    "quantity_kg" => 40,  // Quantity in kg
-                    "cost_naira" => 3800  // Cost in Nigerian Naira
-               ],
-               [
-                    "animal_name" => "Goat",
-                    "feed_name" => "Grass",
-                    "quantity_kg" => 80,  // Quantity in kg
-                    "cost_naira" => 7400  // Cost in Nigerian Naira
-               ]
-                ],
-               [
-              [
-                    "animal_name" => "Sheep",
-                    "feed_name" => "Sheep Feed",
-                    "quantity_kg" => 25,  // Quantity in kg
-                    "cost_naira" => 2500  // Cost in Nigerian Naira
-              ],
-                [
-                    "animal_name" => "Sheep",
-                    "feed_name" => "Sheep Feed",
-                    "quantity_kg" => 50,  // Quantity in kg
-                    "cost_naira" => 4800  // Cost in Nigerian Naira
-                ],
-               [
-                    "animal_name" => "Sheep",
-                    "feed_name" => "Sheep Feed",
-                    "quantity_kg" => 100,  // Quantity in kg
-                    "cost_naira" => 9200  // Cost in Nigerian Naira
-               ]
-            ]
+            //     [
+            //    [
+            //         "animal_name" => "Pig",
+            //         "feed_name" => "Pig Feed",
+            //         "quantity_kg" => 30,  // Quantity in kg
+            //         "cost_naira" => 3000  // Cost in Nigerian Naira
+            //    ],
+            //    [
+            //         "animal_name" => "Pig",
+            //         "feed_name" => "Pig Feed",
+            //         "quantity_kg" => 60,  // Quantity in kg
+            //         "cost_naira" => 5800  // Cost in Nigerian Naira
+            //    ],
+            //     [
+            //         "animal_name" => "Pig",
+            //         "feed_name" => "Pig Feed",
+            //         "quantity_kg" => 120,  // Quantity in kg
+            //         "cost_naira" => 11000  // Cost in Nigerian Naira
+            //     ]
+            //     ],
+            //    [
+            //     [
+            //         "animal_name" => "Goat",
+            //         "feed_name" => "Grass",
+            //         "quantity_kg" => 20,  // Quantity in kg
+            //         "cost_naira" => 2000  // Cost in Nigerian Naira
+            //     ],
+            //    [
+            //         "animal_name" => "Goat",
+            //         "feed_name" => "Grass",
+            //         "quantity_kg" => 40,  // Quantity in kg
+            //         "cost_naira" => 3800  // Cost in Nigerian Naira
+            //    ],
+            //    [
+            //         "animal_name" => "Goat",
+            //         "feed_name" => "Grass",
+            //         "quantity_kg" => 80,  // Quantity in kg
+            //         "cost_naira" => 7400  // Cost in Nigerian Naira
+            //    ]
+            //     ],
+            //    [
+            //   [
+            //         "animal_name" => "Sheep",
+            //         "feed_name" => "Sheep Feed",
+            //         "quantity_kg" => 25,  // Quantity in kg
+            //         "cost_naira" => 2500  // Cost in Nigerian Naira
+            //   ],
+            //     [
+            //         "animal_name" => "Sheep",
+            //         "feed_name" => "Sheep Feed",
+            //         "quantity_kg" => 50,  // Quantity in kg
+            //         "cost_naira" => 4800  // Cost in Nigerian Naira
+            //     ],
+            //    [
+            //         "animal_name" => "Sheep",
+            //         "feed_name" => "Sheep Feed",
+            //         "quantity_kg" => 100,  // Quantity in kg
+            //         "cost_naira" => 9200  // Cost in Nigerian Naira
+            //    ]
+            // ]
                ];
 
 

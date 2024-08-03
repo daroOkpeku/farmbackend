@@ -105,6 +105,8 @@ class PostController extends Controller
       public function feededit(FeedCreateRequest $request){
         return $this->farminterface->feededit($request);
       }
+
+
 }
 
 

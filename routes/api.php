@@ -36,6 +36,7 @@ Route::get("/breednames", "breednames");
 Route::get('/animaldetailsget', 'animaldetailsget');
 Route::get('/animalfeeddata', 'animalfeeddata');
 Route::get('/feeddetailsget', 'feeddetailsget');
+Route::get('/vaccinelist', 'vaccinelist');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
