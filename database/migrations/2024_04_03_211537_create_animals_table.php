@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('animalid');
+            $table->string('animalid')->unique();
             $table->tinyText('name')->nullable();
             $table->string('breed_breedid');
             $table->tinyText('tagnumber');

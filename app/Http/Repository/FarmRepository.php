@@ -23,6 +23,8 @@ use App\Jobs\ProcessBreed;
 use App\Jobs\ProcessEditAnimalDetails;
 use App\Jobs\ProcessFarmInfo;
 use App\Jobs\ProcessFeed;
+use App\Jobs\ProcessFeedCreate;
+use App\Jobs\ProcessFeedEdit;
 use App\Jobs\ProcessFeedSchedule;
 use App\Jobs\ProcessFinancialRecord;
 use App\Jobs\ProcessGenealogy;
@@ -244,5 +246,27 @@ class FarmRepository implements FarmInterface
         }else{
             return response()->json([''=>'please check your input'],200);
         }
+    }
+
+    public function feedcreate($request){
+        $random_number = rand(0, 10000);
+        $sch_number = rand(0, 10000);
+      $feed =  Feed::where('feedid', $random_number)->first();
+       $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->first();
+       $check_tag =  Animal_livestock::where('tag_id', $request->tagnumber)->first();
+       if(!$feed && !$feedsch && $check_tag){
+        $animal = optional(Animal::where('name', $check_tag->name)->first())->animalid;
+        ProcessFeedCreate::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $random_number,  $sch_number, $request->cost, $animal);
+        return response()->json(['success'=>'successful', 'tagnumber'=>$request->tagnumber],200);
+       }else{
+        return response()->json(['error'=>'please check your input'],200);
+       }
+
+    }
+
+    public function feededit($request){
+  
+         ProcessFeedEdit::dispatchAfterResponse($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $request->feedid, $request->cost);
+         return response()->json(['success'=>'Edit successful', 'tagnumber'=>$request->tagnumber], 200);
     }
 }

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('feeds', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('feedid');
+            $table->string('feedid')->unique();
             $table->tinyText('feedtype');
             $table->longText('feeddetails');
+            $table->string('cost');
             $table->timestamps();
         });
     }

@@ -19,4 +19,6 @@ interface FarmInterface{
     public function genealogy($request);
     public function editanimaldetails($request);
     public function photo($request);
+    public function feedcreate($request);
+    public function feededit($request);
 }

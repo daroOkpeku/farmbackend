@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
+use App\Http\Requests\FeedCreateRequest;
 use App\Http\Requests\Photorequest;
 
 class PostController extends Controller
@@ -95,6 +96,14 @@ class PostController extends Controller
 
       public function photo(Photorequest $request){
         return $this->farminterface->photo($request);
+      }
+
+      public function feedcreate(FeedCreateRequest $request){
+        return $this->farminterface->feedcreate($request);
+      }
+
+      public function feededit(FeedCreateRequest $request){
+        return $this->farminterface->feededit($request);
       }
 }
 

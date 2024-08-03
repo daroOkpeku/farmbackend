@@ -11,6 +11,12 @@ class Feed extends Model
     protected $fillable = [
        'feedid',
        'feedtype',
-        'feeddetails'
+        'feeddetails',
+        'cost'
     ];
+
+
+    public function feedConnection(){
+        return $this->hasOne(FeedingSchedule::class, 'feed_feedid', 'feedid', );
+    }
 }

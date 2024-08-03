@@ -34,6 +34,8 @@ Route::get("/test_api", "test_api");
 Route::get("/farmnames", "farmnames");
 Route::get("/breednames", "breednames");
 Route::get('/animaldetailsget', 'animaldetailsget');
+Route::get('/animalfeeddata', 'animalfeeddata');
+Route::get('/feeddetailsget', 'feeddetailsget');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
@@ -54,5 +56,7 @@ Route::controller(PostController::class)->group(function(){
     Route::delete('/deleteanimal', 'deleteAnimal');
     Route::put('/editanimaldetails', 'editanimaldetails');
     Route::put('/photo', 'photo');
+    Route::post('/feedcreate', 'feedcreate');
+    Route::put('/feededit', 'feededit');
 });
 

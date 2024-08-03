@@ -8,6 +8,7 @@ use App\Models\Animal_livestock;
 use App\Models\Breed;
 use App\Models\Farm;
 use App\Models\Farmdetails;
+use App\Models\Feed;
 use App\Models\FinancialRecord;
 use App\Models\Livestock;
 use App\Models\Production;
@@ -94,6 +95,106 @@ class GetController extends Controller
      return response()->json(['success'=>$animal]);
      }
 
+     public function feeddetailsget(){
+      $feed =  Feed::with('feedConnection')->get();
+      
+      return response()->json(['success'=>$feed]);
+     }
+
+     public function animalfeeddata(){
+    
+
+        $animal_feed = [
+
+               [
+                [
+                    "animal_name" => "Cattle",
+                    "feed_name" => "Hay",
+                    "quantity_kg" => 50,  // Quantity in kg
+                    "cost_naira" => 5000  // Cost in Nigerian Naira
+                ],
+                [
+                    "animal_name" => "Cattle",
+                    "feed_name" => "Hay",
+                    "quantity_kg" => 100,  // Quantity in kg
+                    "cost_naira" => 9500  // Cost in Nigerian Naira
+                ],
+                [
+                    "animal_name" => "Cattle",
+                    "feed_name" => "Hay",
+                    "quantity_kg" => 200,  // Quantity in kg
+                    "cost_naira" => 18000  // Cost in Nigerian Naira
+                ]
+                ],
+                [
+               [
+                    "animal_name" => "Pig",
+                    "feed_name" => "Pig Feed",
+                    "quantity_kg" => 30,  // Quantity in kg
+                    "cost_naira" => 3000  // Cost in Nigerian Naira
+               ],
+               [
+                    "animal_name" => "Pig",
+                    "feed_name" => "Pig Feed",
+                    "quantity_kg" => 60,  // Quantity in kg
+                    "cost_naira" => 5800  // Cost in Nigerian Naira
+               ],
+                [
+                    "animal_name" => "Pig",
+                    "feed_name" => "Pig Feed",
+                    "quantity_kg" => 120,  // Quantity in kg
+                    "cost_naira" => 11000  // Cost in Nigerian Naira
+                ]
+                ],
+               [
+                [
+                    "animal_name" => "Goat",
+                    "feed_name" => "Grass",
+                    "quantity_kg" => 20,  // Quantity in kg
+                    "cost_naira" => 2000  // Cost in Nigerian Naira
+                ],
+               [
+                    "animal_name" => "Goat",
+                    "feed_name" => "Grass",
+                    "quantity_kg" => 40,  // Quantity in kg
+                    "cost_naira" => 3800  // Cost in Nigerian Naira
+               ],
+               [
+                    "animal_name" => "Goat",
+                    "feed_name" => "Grass",
+                    "quantity_kg" => 80,  // Quantity in kg
+                    "cost_naira" => 7400  // Cost in Nigerian Naira
+               ]
+                ],
+               [
+              [
+                    "animal_name" => "Sheep",
+                    "feed_name" => "Sheep Feed",
+                    "quantity_kg" => 25,  // Quantity in kg
+                    "cost_naira" => 2500  // Cost in Nigerian Naira
+              ],
+                [
+                    "animal_name" => "Sheep",
+                    "feed_name" => "Sheep Feed",
+                    "quantity_kg" => 50,  // Quantity in kg
+                    "cost_naira" => 4800  // Cost in Nigerian Naira
+                ],
+               [
+                    "animal_name" => "Sheep",
+                    "feed_name" => "Sheep Feed",
+                    "quantity_kg" => 100,  // Quantity in kg
+                    "cost_naira" => 9200  // Cost in Nigerian Naira
+               ]
+            ]
+               ];
+
+
+        return response()->json(['success'=>$animal_feed]);
+     }
+
+
+
+
    public function test_api(){
     // $client = new Client();
     // $headers = [
@@ -114,22 +215,40 @@ class GetController extends Controller
 
     $livestocks = Livestock::all();
 
-    foreach($livestocks as $livestock){
+    // foreach($livestocks as $livestock){
 
-     DB::table('animal_livestocks')->insert([
-            'name'=>$livestock->livestock_type,
-            'sex'=>$livestock->gender,
-            'image'=>$livestock->verification_photo,
-            'age'=>1,
-            'breed'=>$livestock->livestock_breed,
-            'weight'=>$livestock->weight,
-            'tag_id'=>$livestock->tag_id,
-            'health_status'=>$livestock->health_status,
-            'farm_farmid'=>$livestock->owner_id,
-            'created_at'=>now(),
-            'updated_at'=>now()
-            ]);
-    }
+    //  DB::table('animal_livestocks')->insert([
+    //         'name'=>$livestock->livestock_type,
+    //         'sex'=>$livestock->gender,
+    //         'image'=>$livestock->verification_photo,
+    //         'age'=>1,
+    //         'breed'=>$livestock->livestock_breed,
+    //         'weight'=>$livestock->weight,
+    //         'tag_id'=>$livestock->tag_id,
+    //         'health_status'=>$livestock->health_status,
+    //         'farm_farmid'=>$livestock->owner_id,
+    //         'created_at'=>now(),
+    //         'updated_at'=>now()
+    //         ]);
+    // }
+//     foreach($livestocks as $livestock){
+//         $random_number = rand(0, 10000);
+//        $animal = Animal::where('name', $livestock->livestock_type)->first();
+//     DB::table('productions')->insert([
+//         'productionid'=>$random_number,
+//         'animal_animalid'=>$animal->animalid,
+//         'date_of_producation'=>$livestock->gestation_date,
+//         'production_type'=>$livestock->production_type,
+//            'quantity'=>0,
+//           'weight'=>$livestock->weight,
+//           'created_at'=>now(),
+//         'updated_at'=>now()
+//     ]);
+// }
+
+
+
+
 
    }
 }
