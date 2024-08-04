@@ -12,7 +12,12 @@ class Feed extends Model
        'feedid',
        'feedtype',
         'feeddetails',
-        'cost'
+        'cost',
+        'producationtype',
+        'ration',
+        'ration_composition',
+        'disorders',
+        'tagnumber'
     ];
 
 

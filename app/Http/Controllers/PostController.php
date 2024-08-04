@@ -17,6 +17,7 @@ use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
 use App\Http\Requests\FeedCreateRequest;
+use App\Http\Requests\HealthRecordCreateRequest;
 use App\Http\Requests\Photorequest;
 
 class PostController extends Controller
@@ -104,6 +105,14 @@ class PostController extends Controller
 
       public function feededit(FeedCreateRequest $request){
         return $this->farminterface->feededit($request);
+      }
+
+      public function healthrecord_create(HealthRecordCreateRequest $request){
+        return $this->testinterface->healthcreate($request);
+      }
+
+      public function healthedit(HealthRecordCreateRequest $request){
+        return $this->testinterface->healthedit($request);
       }
 
 

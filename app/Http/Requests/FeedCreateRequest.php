@@ -21,6 +21,10 @@ class FeedCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // 'producationtype',
+        // 'ration',
+        // 'ration_composition',
+        // 'disorders',
         return [
            'feedid'=>'alpha_num',
            'tagnumber'=>'required|string',
@@ -28,6 +32,11 @@ class FeedCreateRequest extends FormRequest
             'schedule'=>'required|string',
             'qty'=>'required|alpha_num',
             'cost'=>'required|alpha_num',
+            'feeddetail'=>'required|string|nullable',
+            'producationtype'=>'required|string',
+            'ration'=>'required|alpha_num',
+            'ration_composition'=>'required|string',
+            'disorders'=>'required|string'
         ];
     }
 }

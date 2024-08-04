@@ -37,6 +37,7 @@ Route::get('/animaldetailsget', 'animaldetailsget');
 Route::get('/animalfeeddata', 'animalfeeddata');
 Route::get('/feeddetailsget', 'feeddetailsget');
 Route::get('/vaccinelist', 'vaccinelist');
+Route::get('/healthlist', 'healthlist');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
@@ -59,5 +60,7 @@ Route::controller(PostController::class)->group(function(){
     Route::put('/photo', 'photo');
     Route::post('/feedcreate', 'feedcreate');
     Route::put('/feededit', 'feededit');
+    Route::post("/healthrecord_create", 'healthrecord_create');
+    Route::put("/healthedit", "healthedit");
 });
 

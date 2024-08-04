@@ -12,8 +12,16 @@ class HealthRecord extends Model
     protected $fillable = [
         'recordid',
         'animal_animalid',
-        'event_date',
-         'type_event',
+        'vacation_date',
+         'vaccine_name',
+         'treatments',
+         'treatments_date',
+         'illness',
+         'dose',
+         'cost',
+         'treated_by_vcn_number',
+         'status',
+         'tagnumber',
         'details'
     ];
 }

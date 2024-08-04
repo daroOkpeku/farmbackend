@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('health_records', function (Blueprint $table) {
             $table->id();
             $table->tinyText('recordid');
             $table->foreignId('animal_animalid')->constrained('animals');
-            $table->foreignId('vaccinationschedule_vaccinationscheduleid')->constrained('vaccinationschedules');
-            $table->tinyText('event_date');
-            $table->enum('type_event', ['vaccination', 'illness']);
+            $table->string('vacation_date');
+            $table->string('vaccine_name');
+            $table->string('treatments');
+            $table->string('treatments_date');
+            $table->string('illness');
+            $table->string('cost');
+            $table->string('treated_by_vcn_number');
+            $table->string('status');
+            $table->string('tagnumber');
             $table->longText('details');
             $table->timestamps();
         });

@@ -23,10 +23,15 @@ class ProcessFeedCreate implements ShouldQueue
     public $sch_number;
     public $cost;
     public $animal_animalid;
+    public $feeddetails;
+    public $producationtype;
+    public $ration;
+    public $ration_composition;
+    public $disorders;
     /**
      * Create a new job instance.
      */
-    public function __construct($tagnumber, $feedtype, $schedule, $qty, $random_number, $sch_number, $cost, $animal_animalid)
+    public function __construct($tagnumber, $feedtype, $schedule, $qty, $random_number, $sch_number, $cost, $animal_animalid, $feeddetails, $producationtype, $ration, $ration_composition, $disorders)
     {
         $this->tagnumber = $tagnumber;
         $this->feedtype = $feedtype;
@@ -36,6 +41,11 @@ class ProcessFeedCreate implements ShouldQueue
         $this->sch_number = $sch_number;
         $this->cost = $cost;
         $this->animal_animalid = $animal_animalid;
+        $this->feeddetails = $feeddetails;
+        $this->producationtype = $producationtype;
+        $this->ration = $ration;
+        $this->ration_composition = $ration_composition;
+        $this->disorders = $disorders;
     }
 
     /**
@@ -46,22 +56,21 @@ class ProcessFeedCreate implements ShouldQueue
 
         DB::transaction(function() {
             try {
-                // Log input values for debugging
-                Log::info('Creating Feed with:', [
-                    'feedid' => $this->random_number,
-                    'feedtype' => $this->feedtype,
-                    'feeddetails' => "nothing",
-                    'cost' => $this->cost
-                ]);
-                
+
+
                 $feed = Feed::create([
                     'feedid' => $this->random_number,
                     'feedtype' => $this->feedtype,
-                    'feeddetails' => "nothing",
-                    'cost' => $this->cost
+                    'feeddetails' =>$this->feeddetails,
+                    'cost' => $this->cost,
+                    'producationtype'=>$this->producationtype,
+                    'ration'=>$this->ration,
+                    'ration_composition'=>$this->ration_composition,
+                    'disorders'=>$this->disorders,
+                    'tagnumber'=>$this->tagnumber
                 ]);
 
-                Log::info('Feed created:', ['feed' => $feed]);
+
 
                 if (!$feed) {
                     throw new \Exception('Feed creation failed.');

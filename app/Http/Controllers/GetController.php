@@ -10,6 +10,7 @@ use App\Models\Farm;
 use App\Models\Farmdetails;
 use App\Models\Feed;
 use App\Models\FinancialRecord;
+use App\Models\HealthRecord;
 use App\Models\Livestock;
 use App\Models\Production;
 use App\Models\Vaccines;
@@ -106,6 +107,12 @@ class GetController extends Controller
       return response()->json(['success'=>$vaccines]);
      }
 
+     public function healthlist(Request $request){
+        // HealthRecord
+        $health = HealthRecord::where('tagnumber', $request->get('tagnumber'))->first();
+        return response()->json(['success'=>$health]);
+     }
+
      public function animalfeeddata(){
 
 
@@ -117,7 +124,17 @@ class GetController extends Controller
                     "feed_name" => "Hay",
                     "quantity_kg" => 50,  // Quantity in kg
                     "cost_naira" => 5000,  // Cost in Nigerian Naira
-                    'type'=>'Roughages'
+                    'feed_type'=>array(
+                        'Succulent Roughage',
+                        'Dry Roughage',
+                        'Concentrate',
+                        'Energy Feed',
+                        'Protein Supplement',
+                        'Pasture',
+                        'Tropical Grasses',
+                        'Hay',
+                        'Legumes'
+                    ),
                 ],
 
                 [
@@ -125,14 +142,34 @@ class GetController extends Controller
                     "feed_name" => "Hay",
                     "quantity_kg" => 100,  // Quantity in kg
                     "cost_naira" => 9500,  // Cost in Nigerian Naira
-                    'type'=>'Roughages'
+                   'feed_type'=>array(
+                        'Succulent Roughage',
+                        'Dry Roughage',
+                        'Concentrate',
+                        'Energy Feed',
+                        'Protein Supplement',
+                        'Pasture',
+                        'Tropical Grasses',
+                        'Hay',
+                        'Legumes'
+                    ),
                 ],
                 [
                     "animal_name" => "Goat",
                     "feed_name" => "Hay",
                     "quantity_kg" => 200,  // Quantity in kg
                     "cost_naira" => 18000,  // Cost in Nigerian Naira
-                    'type'=>'Roughages'
+                    'feed_type'=>array(
+                        'Succulent Roughage',
+                        'Dry Roughage',
+                        'Concentrate',
+                        'Energy Feed',
+                        'Protein Supplement',
+                        'Pasture',
+                        'Tropical Grasses',
+                        'Hay',
+                        'Legumes'
+                    ),
                 ]
                 // [
                 //     "animal_name" => "Cattle",
