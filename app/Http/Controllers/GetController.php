@@ -123,6 +123,11 @@ class GetController extends Controller
      return response()->json(['success'=>$finance]);
      }
 
+     public function feed_mgt(Request $request){
+        $feed = Feed::with('feedMgt')->orderBy('created_at', 'desc')->paginate(8);
+        return response()->json(['success'=>$feed]);
+     }
+
      public function animalfeeddata(){
 
 

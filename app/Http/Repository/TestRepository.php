@@ -11,6 +11,7 @@ use App\Jobs\ProcessProductionCreate;
 use App\Jobs\ProcessProductionEdit;
 use App\Models\Animal_livestock;
 use App\Models\Animal;
+use App\Models\Feed;
 use App\Models\FinancialRecord;
 use App\Models\HealthRecord;
 use App\Models\Production;
@@ -149,5 +150,15 @@ class TestRepository implements TestInterface
        else {
         return response()->json(['error' => 'please check your input'], 200);
     }
+    }
+
+    public function feeddelete($request){
+       $feed = Feed::find($request->id);
+       $feed->delete();
+       if($feed){
+        return response()->json(['success' => 'successful', 'data'=>$feed]);
+       }else{
+        return response()->json(['error' => 'please check your input'], 200);
+       }
     }
 }

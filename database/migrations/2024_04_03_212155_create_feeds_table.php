@@ -17,7 +17,13 @@ return new class extends Migration
             $table->tinyText('feedtype');
             $table->longText('feeddetails');
             $table->string('cost');
+            $table->string('producationtype');
+            $table->string('ration');
+            $table->string('ration_composition');
+            $table->string('disorders');
+            $table->string('tagnumber');
             $table->timestamps();
+            $table->foreign('tagnumber')->references('tag_id')->on('animal_livestocks')->onDelete('cascade');
         });
     }
 

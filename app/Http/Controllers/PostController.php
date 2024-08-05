@@ -17,6 +17,7 @@ use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
 use App\Http\Requests\FeedCreateRequest;
+use App\Http\Requests\FeedRequestId;
 use App\Http\Requests\FinanceRecordrequest;
 use App\Http\Requests\HealthRecordCreateRequest;
 use App\Http\Requests\Photorequest;
@@ -131,6 +132,10 @@ class PostController extends Controller
 
       public function financerecordedit(FinanceRecordrequest $request){
         return $this->testinterface->financerecordedit($request);
+      }
+
+      public function feeddelete(FeedRequestId $request){
+        return $this->testinterface->feeddelete($request);
       }
 
 

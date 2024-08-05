@@ -11,4 +11,5 @@ public function productioncreate($request);
 public function productionedit($request);
 public function financerecordcreate($request);
 public function financerecordedit($request);
+public function feeddelete($request);
 }

@@ -24,4 +24,8 @@ class Feed extends Model
     public function feedConnection(){
         return $this->hasOne(FeedingSchedule::class, 'feed_feedid', 'feedid', );
     }
+
+    public function feedMgt(){
+        return $this->belongsTo(Animal_livestock::class, 'tagnumber', 'tag_id');
+    }
 }

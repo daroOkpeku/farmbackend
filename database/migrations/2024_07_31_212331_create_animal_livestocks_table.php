@@ -29,7 +29,7 @@ return new class extends Migration
             $table->tinyInteger('age')->nullable();
             $table->tinyText('breed')->nullable();
             $table->string('weight')->nullable();
-            $table->string('tag_id')->nullable();
+            $table->string('tag_id')->unique()->nullable();
             $table->string('health_status')->nullable();
             $table->string('farm_farmid')->nullable();
             $table->timestamps();
