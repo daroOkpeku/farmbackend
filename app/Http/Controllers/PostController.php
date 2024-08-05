@@ -17,8 +17,10 @@ use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
 use App\Http\Requests\FeedCreateRequest;
+use App\Http\Requests\FinanceRecordrequest;
 use App\Http\Requests\HealthRecordCreateRequest;
 use App\Http\Requests\Photorequest;
+use App\Http\Requests\ProductionCreateRequest;
 
 class PostController extends Controller
 {
@@ -113,6 +115,22 @@ class PostController extends Controller
 
       public function healthedit(HealthRecordCreateRequest $request){
         return $this->testinterface->healthedit($request);
+      }
+
+      public function productioncreate(ProductionCreateRequest $request){
+        return $this->testinterface->productioncreate($request);
+      }
+
+      public function productionedit(ProductionCreateRequest $request){
+        return $this->testinterface->productionedit($request);
+      }
+
+      public function financerecordcreate(FinanceRecordrequest $request){
+        return $this->testinterface->financerecordcreate($request);
+      }
+
+      public function financerecordedit(FinanceRecordrequest $request){
+        return $this->testinterface->financerecordedit($request);
       }
 
 

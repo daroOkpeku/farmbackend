@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('financial_records', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('recordid');
-            $table->foreignId('farm_farmid')->constrained('farms');
-            // $table->tinyText('type_of_finance');
-            $table->enum('type_of_finance', ['income', 'expense']);
-            $table->tinyText('amount');
-            $table->tinyText('date_of_finance');
-            $table->longText('details');
+             $table->string('tagnumber');
+             $table->string('production_type');
+             $table->string('date_fin');
+             $table->string('items');
+             $table->string('input_cost');
+             $table->string('yield');
+             $table->string('current_value');
+             $table->string('revenue');
+             $table->string('profit');
             $table->timestamps();
         });
     }

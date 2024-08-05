@@ -113,6 +113,16 @@ class GetController extends Controller
         return response()->json(['success'=>$health]);
      }
 
+     public function productionsingle(Request $request){
+       $production = Production::where('tagnumber', $request->get('tagnumber'))->first();
+       return response()->json(['success'=>$production]);
+     }
+
+     public function financialrecordsingle(Request $request){
+     $finance =  FinancialRecord::where('tagnumber', $request->get('tagnumber'))->first();
+     return response()->json(['success'=>$finance]);
+     }
+
      public function animalfeeddata(){
 
 

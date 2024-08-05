@@ -16,5 +16,12 @@ class Production extends Model
         'production_type',
            'quantity',
           'weight',
+          'production_cycle',
+            'yield',
+            'cost',
+            'disorders',
+            'estrus_cycle_start_date',
+            'estrus_cycle_end_date',
+            'tagnumber'
     ];
 }

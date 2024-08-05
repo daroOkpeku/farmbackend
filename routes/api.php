@@ -38,6 +38,8 @@ Route::get('/animalfeeddata', 'animalfeeddata');
 Route::get('/feeddetailsget', 'feeddetailsget');
 Route::get('/vaccinelist', 'vaccinelist');
 Route::get('/healthlist', 'healthlist');
+Route::get('/productionsingle', 'productionsingle');
+Route::get('/financialrecordsingle', 'financialrecordsingle');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
@@ -62,5 +64,9 @@ Route::controller(PostController::class)->group(function(){
     Route::put('/feededit', 'feededit');
     Route::post("/healthrecord_create", 'healthrecord_create');
     Route::put("/healthedit", "healthedit");
+    Route::post('/productioncreate', 'productioncreate');
+    Route::put('/productionedit', 'productionedit');
+    Route::post('/financerecordcreate', 'financerecordcreate');
+    Route::put('/financerecordedit', 'financerecordedit');
 });
 
