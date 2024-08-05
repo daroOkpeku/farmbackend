@@ -154,11 +154,22 @@ class TestRepository implements TestInterface
 
     public function feeddelete($request){
        $feed = Feed::find($request->id);
-       $feed->delete();
+
        if($feed){
-        return response()->json(['success' => 'successful', 'data'=>$feed]);
+        $feed->delete();
+        return response()->json(['success' => 'successful']);
        }else{
         return response()->json(['error' => 'please check your input'], 200);
        }
+    }
+
+    public function financedelete($request){
+        $finance =  FinancialRecord::find($request->id);
+    if($finance){
+     $finance->delete();
+     return response()->json(['success' => 'successful']);
+    }else{
+    return response()->json(['error' => 'please check your input'], 200);
+    }
     }
 }

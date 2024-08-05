@@ -28,7 +28,7 @@ class GetController extends Controller
        $animal = count(Animal_livestock::all());
        $group =count(Breed::select('breedid')->distinct()->get());
        $producation = count(Production::all());
-       $expanse = count(FinancialRecord::where("type_of_finance", "expense")->get());
+       $expanse = count(FinancialRecord::all());
        $arrtotals = array(
         ['total'=>$animal, "title"=>'Total Animal', "subtitle"=>"Animal"],
         ['total'=>$group, "title"=>'Total Groups', "subtitle"=>"Groups"],
@@ -126,6 +126,11 @@ class GetController extends Controller
      public function feed_mgt(Request $request){
         $feed = Feed::with('feedMgt')->orderBy('created_at', 'desc')->paginate(8);
         return response()->json(['success'=>$feed]);
+     }
+
+     public function finance_list(){
+         $finance =  FinancialRecord::with('financeConnect')->orderBy('created_at', 'desc')->paginate(8);
+     return response()->json(['success'=>$finance]);
      }
 
      public function animalfeeddata(){

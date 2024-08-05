@@ -20,4 +20,9 @@ class FinancialRecord extends Model
        'revenue',
        'profit'
     ];
+
+
+    public function financeConnect(){
+        return $this->belongsTo(Animal_livestock::class, 'tagnumber', 'tag_id');
+    }
 }

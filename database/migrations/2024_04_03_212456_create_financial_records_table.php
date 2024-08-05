@@ -24,6 +24,7 @@ return new class extends Migration
              $table->string('revenue');
              $table->string('profit');
             $table->timestamps();
+            $table->foreign('tagnumber')->references('tag_id')->on('animal_livestocks')->onDelete('cascade');
         });
     }
 
