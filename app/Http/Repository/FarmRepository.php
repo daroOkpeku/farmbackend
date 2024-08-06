@@ -33,6 +33,7 @@ use App\Jobs\ProcessProduction;
 use App\Jobs\ProcessReproduction;
 use App\Jobs\ProcessSpecial;
 use App\Models\Animal_livestock;
+use App\Models\Document;
 use Illuminate\Support\Facades\Cache;
 use ImageKit\ImageKit;
 
@@ -231,7 +232,8 @@ class FarmRepository implements FarmInterface
             'file' => base64_encode($fileContent),
             'fileName' => 'new-file'
         ]);
-        return $uploadFile->result->url;
+        return $uploadFile;
+        //return $uploadFile->result->url;
     }
 
 
@@ -272,6 +274,16 @@ class FarmRepository implements FarmInterface
         return response()->json(['success' => 'Edit successful', 'tagnumber' => $request->tagnumber], 200);
     }
 
+
+    public function documentupload($request){
+        $fileContent = file_get_contents($request->file('pdf')->getRealPath());
+        $imglink = $this->uploadImage($fileContent);
+        // Document::create([
+        //     'url'=>$imglink
+        // ]);
+        return response()->json(['success'=>'your document has been uploaded', 'data'=>$imglink ],200);
+
+    }
 
 
 }

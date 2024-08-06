@@ -21,4 +21,5 @@ interface FarmInterface{
     public function photo($request);
     public function feedcreate($request);
     public function feededit($request);
+    public function documentupload($request);
 }

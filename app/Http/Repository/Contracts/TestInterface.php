@@ -15,4 +15,5 @@ public function feeddelete($request);
 public function financedelete($request);
 public function healthrecordsdelete($request);
 public function productiondelete($request);
+public function documentdelete($request);
 }

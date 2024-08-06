@@ -6,6 +6,7 @@ use App\Http\Resources\Animalresource;
 use App\Models\Animal;
 use App\Models\Animal_livestock;
 use App\Models\Breed;
+use App\Models\Document;
 use App\Models\Farm;
 use App\Models\Farmdetails;
 use App\Models\Feed;
@@ -141,6 +142,11 @@ class GetController extends Controller
      public function prouctionlist(Request $request){
         $feed = Production::whereNotNull('tagnumber')->with('producconnect')->orderBy('created_at', 'desc')->paginate(8);
         return response()->json(['success'=>$feed]);
+     }
+
+     public function documentlist(){
+       $document = Document::orderBy('created_at', 'desc')->paginate(8);
+       return response()->json(['success'=>$document]);
      }
 
 

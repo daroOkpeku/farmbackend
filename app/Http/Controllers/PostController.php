@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Repository\Contracts\FarmInterface;
 use App\Http\Requests\Deleterequest;
+use App\Http\Requests\Documentrequest;
 use App\Http\Requests\FeedCreateRequest;
 use App\Http\Requests\FeedRequestId;
 use App\Http\Requests\FinanceRecordrequest;
@@ -148,6 +149,14 @@ class PostController extends Controller
 
       public function productiondelete(FeedRequestId $request){
         return $this->testinterface->productiondelete($request);
+      }
+
+      public function documentupload(Documentrequest $request){
+        return $this->farminterface->documentupload($request);
+      }
+
+      public function documentdelete(FeedRequestId $request){
+        return $this->testinterface->documentdelete($request);
       }
 
 }

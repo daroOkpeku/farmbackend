@@ -11,6 +11,7 @@ use App\Jobs\ProcessProductionCreate;
 use App\Jobs\ProcessProductionEdit;
 use App\Models\Animal_livestock;
 use App\Models\Animal;
+use App\Models\Document;
 use App\Models\Feed;
 use App\Models\FinancialRecord;
 use App\Models\HealthRecord;
@@ -191,5 +192,15 @@ class TestRepository implements TestInterface
        }else{
        return response()->json(['error' => 'please check your input'], 200);
        }
+    }
+
+    public function documentdelete($request){
+        $document = Document::find($request->id);
+        if($document){
+          $document->delete();
+          return response()->json(['success' => 'successful']);
+         }else{
+         return response()->json(['error' => 'please check your input'], 200);
+         }
     }
 }
