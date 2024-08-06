@@ -133,6 +133,11 @@ class GetController extends Controller
      return response()->json(['success'=>$finance]);
      }
 
+     public function healthrecords_list(){
+        $healthrecords = HealthRecord::with('healthConnect')->orderBy('created_at', 'desc')->paginate(8);
+        return response()->json(['success'=>$healthrecords]);
+     }
+
      public function animalfeeddata(){
 
 

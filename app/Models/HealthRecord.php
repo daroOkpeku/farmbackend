@@ -24,4 +24,8 @@ class HealthRecord extends Model
          'tagnumber',
         'details'
     ];
+
+    public function healthConnect(){
+        return $this->belongsTo(Animal_livestock::class, 'tagnumber', 'tag_id');
+    }
 }

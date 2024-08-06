@@ -172,4 +172,14 @@ class TestRepository implements TestInterface
     return response()->json(['error' => 'please check your input'], 200);
     }
     }
+
+    public function healthrecordsdelete($request){
+        $healthrecords = HealthRecord::find($request->id);
+        if($healthrecords){
+            $healthrecords->delete();
+            return response()->json(['success' => 'successful']);
+           }else{
+           return response()->json(['error' => 'please check your input'], 200);
+           }
+    }
 }

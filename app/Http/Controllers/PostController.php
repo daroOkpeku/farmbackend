@@ -142,6 +142,10 @@ class PostController extends Controller
         return $this->testinterface->financedelete($request);
       }
 
+      public function healthrecordsdelete(FeedRequestId $request){
+        return $this->testinterface->healthrecordsdelete($request);
+      }
+
 
 }
 

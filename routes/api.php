@@ -42,6 +42,7 @@ Route::get('/productionsingle', 'productionsingle');
 Route::get('/financialrecordsingle', 'financialrecordsingle');
 Route::get('/feed_mgt', 'feed_mgt');
 Route::get('/finance_list', 'finance_list');
+Route::get('/healthrecords_list', 'healthrecords_list');
 });
 
 Route::post("farminfo", [PostController::class, "farminfo"]);
@@ -71,6 +72,7 @@ Route::controller(PostController::class)->group(function(){
     Route::post('/financerecordcreate', 'financerecordcreate');
     Route::put('/financerecordedit', 'financerecordedit');
     Route::delete('/feeddelete', 'feeddelete');
-    Route::put('/financedelete', 'financedelete');
+    Route::delete('/financedelete', 'financedelete');
+    Route::delete('/healthrecordsdelete', 'healthrecordsdelete');
 });
 
