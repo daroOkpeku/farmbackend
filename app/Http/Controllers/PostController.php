@@ -146,6 +146,9 @@ class PostController extends Controller
         return $this->testinterface->healthrecordsdelete($request);
       }
 
+      public function productiondelete(FeedRequestId $request){
+        return $this->testinterface->productiondelete($request);
+      }
 
 }
 

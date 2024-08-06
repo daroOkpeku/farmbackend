@@ -24,4 +24,8 @@ class Production extends Model
             'estrus_cycle_end_date',
             'tagnumber'
     ];
+
+    public function producconnect(){
+        return $this->belongsTo(Animal_livestock::class, 'tagnumber', 'tag_id');
+    }
 }

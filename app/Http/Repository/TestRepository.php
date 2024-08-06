@@ -182,4 +182,14 @@ class TestRepository implements TestInterface
            return response()->json(['error' => 'please check your input'], 200);
            }
     }
+
+    public function productiondelete($request){
+      $production = Production::find($request->id);
+      if($production){
+        $production->delete();
+        return response()->json(['success' => 'successful']);
+       }else{
+       return response()->json(['error' => 'please check your input'], 200);
+       }
+    }
 }

@@ -138,6 +138,13 @@ class GetController extends Controller
         return response()->json(['success'=>$healthrecords]);
      }
 
+     public function prouctionlist(Request $request){
+        $feed = Production::whereNotNull('tagnumber')->with('producconnect')->orderBy('created_at', 'desc')->paginate(8);
+        return response()->json(['success'=>$feed]);
+     }
+
+
+
      public function animalfeeddata(){
 
 
