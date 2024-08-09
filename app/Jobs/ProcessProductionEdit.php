@@ -23,6 +23,7 @@ class ProcessProductionEdit implements ShouldQueue
     public $estrus_cycle_end_date;
     public  $tagnumber;
     public $quantity;
+    public $id;
     /**
      * Create a new job instance.
      */
@@ -37,7 +38,9 @@ class ProcessProductionEdit implements ShouldQueue
         $estrus_cycle_start_date,
         $estrus_cycle_end_date,
         $tagnumber,
-        $quantity)
+        $quantity,
+        $id
+        )
     {
     $this->production_cycle = $production_cycle;
     $this->production_type = $production_type;
@@ -50,7 +53,7 @@ class ProcessProductionEdit implements ShouldQueue
     $this->estrus_cycle_start_date = $estrus_cycle_start_date;
     $this->tagnumber = $tagnumber;
     $this->quantity = $quantity;
-
+    $this->id = $id;
     }
 
     /**
@@ -58,7 +61,7 @@ class ProcessProductionEdit implements ShouldQueue
      */
     public function handle(): void
     {
-        $produc = Production::where('tagnumber', $this->tagnumber)->exists();
+        $produc = Production::where(['tagnumber'=>$this->tagnumber, 'id'=>$this->id])->exists();
         if(!$produc){
             $produc->fill([
                 'date_of_producation'=>$this->date,

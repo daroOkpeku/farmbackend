@@ -23,6 +23,7 @@ class Animaldetailsrequest extends FormRequest
     {
 
         return [
+            'id'=>'alpha_num',
             "animal_name"=>"required|string",
             "breed"=>"required|string",
             "age"=>"required|string",

@@ -25,11 +25,12 @@ class ProcessFeedEdit implements ShouldQueue
     public $ration;
     public $ration_composition;
     public $disorders;
+    public $id;
     /**
      * tagnumber
      * Create a new job instance.
      */
-    public function __construct($tagnumber, $feedtype, $schedule, $qty, $feedid, $cost, $feeddetails, $producationtype, $ration, $ration_composition, $disorders)
+    public function __construct($tagnumber, $feedtype, $schedule, $qty, $feedid, $cost, $feeddetails, $producationtype, $ration, $ration_composition, $disorders, $id)
     {
         $this->tagnumber = $tagnumber;
         $this->feedtype = $feedtype;
@@ -42,6 +43,7 @@ class ProcessFeedEdit implements ShouldQueue
         $this->ration = $ration;
         $this->ration_composition = $ration_composition;
         $this->disorders = $disorders;
+        $this->id = $id;
 
     }
 
@@ -52,7 +54,7 @@ class ProcessFeedEdit implements ShouldQueue
     {
 
         DB::transaction(function () {
-           $feed = Feed::where('feedid', $this->feedid)->first();
+           $feed = Feed::where(['feedid'=>$this->feedid, 'id'=>$this->id])->first();
            if($feed){
             $feed->fill([
                 'tagnumber'=>$this->tagnumber,

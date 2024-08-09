@@ -46,23 +46,27 @@ class GetController extends Controller
       $groupedFinances = $finances->groupBy(function($date) {
         return Carbon::parse($date->created_at)->format('Y-m'); // Group by year and month
     });
-    $monthlySums = $groupedFinances->map(function($month) {
-        $income = $month->where('type_of_finance', 'income')->sum('amount');
-        $expense = $month->where('type_of_finance', 'expense')->sum('amount');
-        return ['income' => $income, 'expense' => $expense];
+
+    $arr = [];
+    $monthlySums = $groupedFinances->map(function($month) use (&$arr) {
+
+
+        // Iterate over each record in the month
+        foreach ($month as $record) {
+            $arr[] = [
+                'month'=>Carbon::parse($record['created_at'])->format('Y-m'),
+                'profit' => floatval($record['profit']),
+                'loss' => floatval($record['input_cost']),
+            ];
+        }
+
+
+
+        return null; // Return null to satisfy the map function, though it's not used
     });
-      $arr = array();
-      foreach ($monthlySums as $month => $sums) {
 
-        $arr[] = [
-            "name" => $month,
-            "profit" => $sums['income'],
-            "expense" => $sums['expense'],
-            "amt"=>$sums['date_of_finance']
-        ];
-    }
-
-      return response()->json(["success"=>$arr]);
+    // Return the array as JSON response
+    return response()->json(["success" => $arr]);
     }
 
     public function animaldata(){
@@ -94,12 +98,12 @@ class GetController extends Controller
      }
 
      public function animaldetailsget(Request $request){
-     $animal = Animal_livestock::with('FarmConnect')->where('tag_id', $request->get('tagnumber'))->first();
+     $animal = Animal_livestock::with('FarmConnect')->where(['tag_id'=>$request->get('tagnumber'), 'id'=>intval($request->get('id'))])->first();
      return response()->json(['success'=>$animal]);
      }
 
-     public function feeddetailsget(){
-      $feed =  Feed::with('feedConnection')->get();
+     public function feeddetailsget(Request $request){
+      $feed =  Feed::with('feedConnection')->where(['tagnumber'=>$request->get('tagnumber'), 'id'=>intval($request->get('id'))])->first();
       return response()->json(['success'=>$feed]);
      }
 
@@ -110,17 +114,17 @@ class GetController extends Controller
 
      public function healthlist(Request $request){
         // HealthRecord
-        $health = HealthRecord::where('tagnumber', $request->get('tagnumber'))->first();
+        $health = HealthRecord::where(['tagnumber'=>$request->get('tagnumber'), 'id'=>intval($request->get('id'))])->first();
         return response()->json(['success'=>$health]);
      }
 
      public function productionsingle(Request $request){
-       $production = Production::where('tagnumber', $request->get('tagnumber'))->first();
+       $production = Production::where(['tagnumber'=>$request->get('tagnumber'), 'id'=>intval($request->get('id'))])->first();
        return response()->json(['success'=>$production]);
      }
 
      public function financialrecordsingle(Request $request){
-     $finance =  FinancialRecord::where('tagnumber', $request->get('tagnumber'))->first();
+     $finance =  FinancialRecord::where(['tagnumber'=>$request->get('tagnumber'), 'id'=>intval($request->get('id'))])->first();
      return response()->json(['success'=>$finance]);
      }
 

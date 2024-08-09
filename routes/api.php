@@ -60,12 +60,11 @@ Route::post("/financialrecord", [PostController::class, "financialrecord"]);
 Route::post("/animallocation", [PostController::class, "animallocation"]);
 Route::post("/genealogy", [PostController::class, "genealogy"]);
 Route::post("/showtest", [PostController::class, "showtest"]);
-
+Route::post('/feedcreate', [PostController::class, "feedcreate"]);
 Route::controller(PostController::class)->group(function(){
     Route::delete('/deleteanimal', 'deleteAnimal');
     Route::put('/editanimaldetails', 'editanimaldetails');
     Route::put('/photo', 'photo');
-    Route::post('/feedcreate', 'feedcreate');
     Route::put('/feededit', 'feededit');
     Route::post("/healthrecord_create", 'healthrecord_create');
     Route::put("/healthedit", "healthedit");

@@ -31,7 +31,7 @@ class ProductionCreateRequest extends FormRequest
                     'disorders'=>'required|string',
                      'estrus_cycle_start_date'=>'required|string',
                       'estrus_cycle_end_date'=>'required|string',
-                      'tagnumber'=>'required|alpha_num'
+                      'tagnumber'=>'required|string'
         ];
     }
 }

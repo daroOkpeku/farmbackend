@@ -22,10 +22,11 @@ class ProcessHealthEdit implements ShouldQueue
       public $treated_by_vcn_number;
       public $status;
       public $tagnumber;
+      public $id;
     /**
      * Create a new job instance.
      */
-    public function __construct($vacation_date, $vaccine_name, $treatments, $treatments_date, $illness, $dose, $cost, $treated_by_vcn_number, $status,  $tagnumber)
+    public function __construct($vacation_date, $vaccine_name, $treatments, $treatments_date, $illness, $dose, $cost, $treated_by_vcn_number, $status,  $tagnumber, $id)
     {
         $this->vacation_date = $vacation_date;
         $this->vaccine_name =  $vaccine_name;
@@ -37,6 +38,7 @@ class ProcessHealthEdit implements ShouldQueue
         $this->treated_by_vcn_number = $treated_by_vcn_number;
         $this->status = $status;
         $this->tagnumber = $tagnumber;
+        $this->id = $id;
     }
 
     /**
@@ -44,7 +46,7 @@ class ProcessHealthEdit implements ShouldQueue
      */
     public function handle(): void
     {
-        $check =   HealthRecord::where('tagnumber', $this->tagnumber)->first();
+        $check =   HealthRecord::where(['tagnumber'=>$this->tagnumber, 'id'=>$this->id])->first();
         if($check){
             $check->fill([
                 'vacation_date'=> $this->vacation_date,

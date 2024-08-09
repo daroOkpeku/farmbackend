@@ -21,6 +21,7 @@ class ProcessFinanceRecordEdit implements ShouldQueue
     public $current_value;
     public $revenue;
     public $profit;
+    public $id;
     /**
      * Create a new job instance.
      */
@@ -33,7 +34,8 @@ class ProcessFinanceRecordEdit implements ShouldQueue
     $yield,
     $current_value,
     $revenue,
-    $profit
+    $profit,
+    $id
     )
     {
         $this->tagnumber = $tagnumber;
@@ -45,6 +47,7 @@ class ProcessFinanceRecordEdit implements ShouldQueue
         $this->current_value = $current_value;
         $this->revenue = $revenue;
         $this->profit = $profit;
+        $this->id  = $id;
     }
 
     /**
@@ -52,7 +55,7 @@ class ProcessFinanceRecordEdit implements ShouldQueue
      */
     public function handle(): void
     {
-        $finance = FinancialRecord::where('tagnumber', $this->tagnumber)->first();
+        $finance = FinancialRecord::where(['tagnumber'=> $this->tagnumber, 'id'=>$this->id])->first();
        if($finance){
         $finance->fill([
             'production_type'=>$this->production_type,

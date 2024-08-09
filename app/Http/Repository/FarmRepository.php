@@ -84,9 +84,18 @@ class FarmRepository implements FarmInterface
         } else {
             $farm = Farm::where('farmname', $request->farmname)->first();
             if ($farm) {
-                ProcessAnimalDetails::dispatchAfterResponse($request->animal_name,  $request->breed, $request->tagnumber, $request->sex, $request->age, $request->weight, $request->health_status, $farm->farmid);
-
-                return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber], 200);
+                $animal =   Animal_livestock::create([
+                    'name'=>$request->animal_name,
+                    'sex'=>$request->sex,
+                    'age'=>$request->age,
+                    'breed'=>$request->breed,
+                    'weight'=>$request->weight,
+                    'tag_id'=>$request->tagnumber,
+                    'health_status'=>$request->health_status,
+                    'farm_farmid'=>$farm->farmid
+                ]);
+              ProcessAnimalDetails::dispatchAfterResponse($animal);
+                return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber, 'id'=>$animal->id], 200);
             } else {
                 return response()->json(['error' => 'please input correct details'], 200);
             }
@@ -100,7 +109,7 @@ class FarmRepository implements FarmInterface
         if ($check_tag) {
             try {
                 $farm = Farm::where('farmname', $request->farmname)->first();
-                ProcessEditAnimalDetails::dispatchAfterResponse($request->animal_name,  $request->breed, $request->tagnumber, $request->sex, $request->age, $request->weight, $request->health_status, $farm->farmid);
+                ProcessEditAnimalDetails::dispatch($request->animal_name,  $request->breed, $request->tagnumber, $request->sex, $request->age, $request->weight, $request->health_status, $farm->farmid, $request->id);
                 return response()->json(['success' => 'successful edited', 'tagnumber' => $request->tagnumber], 200);
             } catch (\Throwable $th) {
                 return response()->json(['error' => 'please input correct details'], 200);
@@ -253,15 +262,41 @@ class FarmRepository implements FarmInterface
 
     public function feedcreate($request)
     {
+   
         $random_number = rand(0, 10000);
         $sch_number = rand(0, 10000);
         $feed =  Feed::where('feedid', $random_number)->first();
-        $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->first();
+        $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->exists();
         $check_tag =  Animal_livestock::where('tag_id', $request->tagnumber)->first();
-        if (!$feed && !$feedsch && !$check_tag) {
-            $animal = optional(Animal::where('name', $check_tag->name)->first())->animalid;
-            ProcessFeedCreate::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $random_number,  $sch_number, $request->cost, $animal, $request->feeddetail, $request->producationtype, $request->ration, $request->ration_composition, $request->disorders);
-            return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber], 200);
+        $animal = Animal::where(['name'=>$check_tag->name])->first();
+       
+        if (!$feed && !$feedsch && $check_tag &&  $animal) {
+          
+              
+            // return response()->json([$check_tag, $animal]);
+                $feeds = Feed::create([
+                'feedid' => $random_number,
+                'feedtype' =>$request->feedtype,
+                'feeddetails' =>$request->feeddetail,
+                'cost' => $request->cost,
+                'producationtype'=>$request->producationtype,
+                'ration'=> $request->ration,
+                'ration_composition'=>$request->ration_composition,
+                'disorders'=> $request->disorders,
+                'tagnumber'=>$request->tagnumber
+            ]);
+    
+            FeedingSchedule::create([
+                'scheduleid' => $sch_number,
+                'animal_animalid' =>$animal->animalid,
+                'feed_feedid' => $feeds->feedid, // Use feedid
+                'date_of_feeding' =>$request->schedule,
+                'quantity' =>$request->qty
+            ]);
+               ProcessFeedCreate::dispatchAfterResponse($feeds);
+               return response()->json(['success' => 'successful', 'tagnumber' =>$request->tagnumber, 'id'=>$feeds->id], 200);
+ 
+     
         } else {
             return response()->json(['error' => 'please check your input'], 200);
         }
@@ -270,7 +305,7 @@ class FarmRepository implements FarmInterface
     public function feededit($request)
     {
 
-        ProcessFeedEdit::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $request->feedid, $request->cost, $request->feeddetail, $request->producationtype, $request->ration, $request->ration_composition, $request->disorders);
+        ProcessFeedEdit::dispatch($request->tagnumber, $request->feedtype, $request->schedule, $request->qty, $request->feedid, $request->cost, $request->feeddetail, $request->producationtype, $request->ration, $request->ration_composition, $request->disorders, $request->id);
         return response()->json(['success' => 'Edit successful', 'tagnumber' => $request->tagnumber], 200);
     }
 

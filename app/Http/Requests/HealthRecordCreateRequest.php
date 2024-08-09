@@ -32,6 +32,7 @@ class HealthRecordCreateRequest extends FormRequest
             'treated_by_vcn_number'=>'required|string',
             'status'=>'required|string',
             "tagnumber"=>"string",
+            'id'=>'alpha_num'
         ];
     }
 }

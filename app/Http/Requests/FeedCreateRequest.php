@@ -36,7 +36,8 @@ class FeedCreateRequest extends FormRequest
             'producationtype'=>'required|string',
             'ration'=>'required|alpha_num',
             'ration_composition'=>'required|string',
-            'disorders'=>'required|string'
+            'disorders'=>'required|string',
+            'id'=>'alpha_num'
         ];
     }
 }

@@ -31,7 +31,8 @@ class FinanceRecordrequest extends FormRequest
          'yield'=>'required|string',
          'current_value'=>'required|alpha_num',
          'revenue'=>'required|alpha_num',
-         'profit'=>'required|alpha_num'
+         'profit'=>'required|alpha_num',
+         'id'=>'alpha_num'
         ];
     }
 }
