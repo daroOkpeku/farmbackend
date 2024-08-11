@@ -95,8 +95,8 @@ class PostController extends Controller
        return $this->farminterface->genealogy($request);
       }
 
-      public function deleteAnimal(Deleterequest $request){
-        return $this->testinterface->deleteAnimal($request);
+      public function deleteAnimal( $id){
+        return $this->testinterface->deleteAnimal($id);
       }
 
       public function photo(Photorequest $request){
@@ -135,28 +135,28 @@ class PostController extends Controller
         return $this->testinterface->financerecordedit($request);
       }
 
-      public function feeddelete(FeedRequestId $request){
-        return $this->testinterface->feeddelete($request);
+      public function feeddelete( $id){
+        return $this->testinterface->feeddelete($id);
       }
 
-      public function financedelete(FeedRequestId $request){
-        return $this->testinterface->financedelete($request);
+      public function financedelete( $id){
+        return $this->testinterface->financedelete($id);
       }
 
-      public function healthrecordsdelete(FeedRequestId $request){
-        return $this->testinterface->healthrecordsdelete($request);
+      public function healthrecordsdelete( $id){
+        return $this->testinterface->healthrecordsdelete($id);
       }
 
-      public function productiondelete(FeedRequestId $request){
-        return $this->testinterface->productiondelete($request);
+      public function productiondelete( $id){
+        return $this->testinterface->productiondelete($id);
       }
 
       public function documentupload(Documentrequest $request){
         return $this->farminterface->documentupload($request);
       }
 
-      public function documentdelete(FeedRequestId $request){
-        return $this->testinterface->documentdelete($request);
+      public function documentdelete( $id){
+        return $this->testinterface->documentdelete($id);
       }
 
 }

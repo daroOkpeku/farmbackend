@@ -37,7 +37,9 @@
 return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['*'], // or specify the necessary origins
+    // 'allowed_origins' => ['*'],
+    'allowed_origins' => ['*'],
+    // 'allowed_origins' => ['http://localhost:3000', 'https://ranchidpro.com'], // or specify the necessary origins
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],

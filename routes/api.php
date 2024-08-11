@@ -62,7 +62,7 @@ Route::post("/genealogy", [PostController::class, "genealogy"]);
 Route::post("/showtest", [PostController::class, "showtest"]);
 Route::post('/feedcreate', [PostController::class, "feedcreate"]);
 Route::controller(PostController::class)->group(function(){
-    Route::delete('/deleteanimal', 'deleteAnimal');
+    Route::delete('/deleteanimal/{id}', 'deleteAnimal')->where('id', '[0-9]+'); //done
     Route::put('/editanimaldetails', 'editanimaldetails');
     Route::put('/photo', 'photo');
     Route::put('/feededit', 'feededit');
@@ -72,11 +72,12 @@ Route::controller(PostController::class)->group(function(){
     Route::put('/productionedit', 'productionedit');
     Route::post('/financerecordcreate', 'financerecordcreate');
     Route::put('/financerecordedit', 'financerecordedit');
-    Route::delete('/feeddelete', 'feeddelete');
-    Route::delete('/financedelete', 'financedelete');
-    Route::delete('/healthrecordsdelete', 'healthrecordsdelete');
-    Route::delete('/productiondelete', 'productiondelete');
+    Route::delete('/feeddelete/{id}', 'feeddelete')->where('id', '[0-9]+'); //done
+    Route::delete('/financedelete/{id}', 'financedelete')->where('id', '[0-9]+'); //done
+    Route::delete('/healthrecordsdelete/{id}', 'healthrecordsdelete')->where('id', '[0-9]+'); //done
+    Route::delete('/productiondelete/{id}', 'productiondelete')->where('id', '[0-9]+');
     Route::post('/documentupload', 'documentupload');
-    Route::delete('/documentdelete', 'documentdelete');
+    Route::delete('/documentdelete/{id}', 'documentdelete')->where('id', '[0-9]+');
 });
+
 

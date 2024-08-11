@@ -25,10 +25,10 @@ class TestRepository implements TestInterface
         dd($request->all());
     }
 
-    public function deleteAnimal($request)
+    public function deleteAnimal($id)
     {
         try {
-            $animal = Animal_livestock::findOrFail($request->id);
+            $animal = Animal_livestock::findOrFail($id);
             $animal->delete();
             return response()->json(['success' => 'Animal deleted successfully'], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -107,7 +107,7 @@ class TestRepository implements TestInterface
        ProcessProductionCreate::dispatchAfterResponse(
              $production
             );
-          
+
             return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber, 'id'=>$production->id], 200);
         } else {
             return response()->json(['error' => 'please check your input'], 200);
@@ -156,7 +156,7 @@ class TestRepository implements TestInterface
          ProcessFinanceRecord::dispatchAfterResponse(
             $finance
             );
-            
+
             return response()->json(['success' => 'successful', 'tagnumber' => $request->tagnumber, 'id'=>$finance->id], 200);
         }else {
             return response()->json(['error' => 'please check your input'], 200);
@@ -185,8 +185,8 @@ class TestRepository implements TestInterface
     }
     }
 
-    public function feeddelete($request){
-       $feed = Feed::find($request->id);
+    public function feeddelete($id){
+       $feed = Feed::find($id);
 
        if($feed){
         $feed->delete();
@@ -196,8 +196,8 @@ class TestRepository implements TestInterface
        }
     }
 
-    public function financedelete($request){
-        $finance =  FinancialRecord::find($request->id);
+    public function financedelete($id){
+        $finance =  FinancialRecord::find($id);
     if($finance){
      $finance->delete();
      return response()->json(['success' => 'successful']);
@@ -206,8 +206,8 @@ class TestRepository implements TestInterface
     }
     }
 
-    public function healthrecordsdelete($request){
-        $healthrecords = HealthRecord::find($request->id);
+    public function healthrecordsdelete($id){
+        $healthrecords = HealthRecord::find($id);
         if($healthrecords){
             $healthrecords->delete();
             return response()->json(['success' => 'successful']);
@@ -216,8 +216,8 @@ class TestRepository implements TestInterface
            }
     }
 
-    public function productiondelete($request){
-      $production = Production::find($request->id);
+    public function productiondelete($id){
+      $production = Production::find($id);
       if($production){
         $production->delete();
         return response()->json(['success' => 'successful']);
@@ -226,8 +226,8 @@ class TestRepository implements TestInterface
        }
     }
 
-    public function documentdelete($request){
-        $document = Document::find($request->id);
+    public function documentdelete($id){
+        $document = Document::find($id);
         if($document){
           $document->delete();
           return response()->json(['success' => 'successful']);
