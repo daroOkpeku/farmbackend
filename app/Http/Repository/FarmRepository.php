@@ -252,7 +252,7 @@ class FarmRepository implements FarmInterface
         if ($check_tag) {
             $fileContent = file_get_contents($request->file('image')->getRealPath());
             $imglink = $this->uploadImage($fileContent);
-            $check_tag->image = $imglink;
+            $check_tag->image = $imglink->result->url;
             $check_tag->save();
             return response()->json(['success' => 'your image have been updated', 'image' => $imglink], 200);
         } else {
@@ -314,9 +314,10 @@ class FarmRepository implements FarmInterface
         $fileContent = file_get_contents($request->file('pdf')->getRealPath());
         $imglink = $this->uploadImage($fileContent);
         Document::create([
-            'url'=>$imglink
+            'url'=>$imglink->result->url
         ]);
-        return response()->json(['success'=>'your document has been uploaded', 'data'=>$imglink ],200);
+        //'data'=>$imglink
+        return response()->json(['success'=>'your document has been uploaded'],200);
 
     }
 
