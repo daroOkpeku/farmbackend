@@ -262,17 +262,17 @@ class FarmRepository implements FarmInterface
 
     public function feedcreate($request)
     {
-   
+
         $random_number = rand(0, 10000);
         $sch_number = rand(0, 10000);
         $feed =  Feed::where('feedid', $random_number)->first();
         $feedsch = FeedingSchedule::where('scheduleid', $sch_number)->exists();
         $check_tag =  Animal_livestock::where('tag_id', $request->tagnumber)->first();
         $animal = Animal::where(['name'=>$check_tag->name])->first();
-       
+
         if (!$feed && !$feedsch && $check_tag &&  $animal) {
-          
-              
+
+
             // return response()->json([$check_tag, $animal]);
                 $feeds = Feed::create([
                 'feedid' => $random_number,
@@ -285,7 +285,7 @@ class FarmRepository implements FarmInterface
                 'disorders'=> $request->disorders,
                 'tagnumber'=>$request->tagnumber
             ]);
-    
+
             FeedingSchedule::create([
                 'scheduleid' => $sch_number,
                 'animal_animalid' =>$animal->animalid,
@@ -295,8 +295,8 @@ class FarmRepository implements FarmInterface
             ]);
                ProcessFeedCreate::dispatchAfterResponse($feeds);
                return response()->json(['success' => 'successful', 'tagnumber' =>$request->tagnumber, 'id'=>$feeds->id], 200);
- 
-     
+
+
         } else {
             return response()->json(['error' => 'please check your input'], 200);
         }
@@ -313,9 +313,9 @@ class FarmRepository implements FarmInterface
     public function documentupload($request){
         $fileContent = file_get_contents($request->file('pdf')->getRealPath());
         $imglink = $this->uploadImage($fileContent);
-        // Document::create([
-        //     'url'=>$imglink
-        // ]);
+        Document::create([
+            'url'=>$imglink
+        ]);
         return response()->json(['success'=>'your document has been uploaded', 'data'=>$imglink ],200);
 
     }
