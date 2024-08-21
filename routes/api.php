@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EngineMetricsController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -80,4 +81,9 @@ Route::controller(PostController::class)->group(function(){
     Route::delete('/documentdelete/{id}', 'documentdelete')->where('id', '[0-9]+');
 });
 
+
+Route::controller(EngineMetricsController::class)->group(function(){
+    Route::put('/engine-metrics/{id}/update', 'updatearduino');
+
+});
 

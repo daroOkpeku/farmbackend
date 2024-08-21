@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Http\Repository\Contracts\TestInterface;
+use App\Jobs\ProcessArduino;
 use App\Jobs\ProcessFinanceRecord;
 use App\Jobs\ProcessFinanceRecordEdit;
 use App\Jobs\ProcessHealthCreate;
@@ -234,5 +235,26 @@ class TestRepository implements TestInterface
          }else{
          return response()->json(['error' => 'please check your input'], 200);
          }
+    }
+
+    public function updatearduino($id, $request){
+
+        ProcessArduino::dispatch(
+            $request->voltage,
+            $request->current,
+            $request->frequency,
+            $request->power,
+            $request->energy,
+            $request->runtime,
+            $request->temperature,
+            $request->oil_level,
+            $request->oil_quality,
+            $request->fuel_level,
+            $request->rpm,
+            $request->gyration,
+            $request->health_status,
+            $id
+        );
+        return response()->json(['message' =>'Engine metrics updated successfully'],200);
     }
 }

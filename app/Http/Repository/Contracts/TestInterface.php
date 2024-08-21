@@ -16,4 +16,5 @@ public function financedelete($id);
 public function healthrecordsdelete($id);
 public function productiondelete($id);
 public function documentdelete($id);
+public function updatearduino($id, $request);
 }

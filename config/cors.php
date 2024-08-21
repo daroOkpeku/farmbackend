@@ -39,7 +39,7 @@ return [
     'allowed_methods' => ['*'],
     // 'allowed_origins' => ['*'],
     // 'allowed_origins' => ['*'],
-    'allowed_origins' => ['http://localhost:3000', 'https://ranchidpro.com'], // or specify the necessary origins
+    'allowed_origins' => ['http://localhost:3000', 'https://ranchidpro.com', 'http://127.0.0.1:8000'], // or specify the necessary origins
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
