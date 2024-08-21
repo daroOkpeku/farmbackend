@@ -68,7 +68,7 @@ class ProcessArduino implements ShouldQueue
      */
     public function handle(): void
     {
-        Arduinodata::created([
+        Arduinodata::create([
             'voltage'=>$this->voltage,
             'current'=>$this->current,
             'frequency'=>$this->frequency,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repository\Contracts\TestInterface;
+use App\Http\Requests\Arduinorequest;
 use App\Models\Animal_livestock;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class EngineMetricsController extends Controller
     }
 
 
-    public function updatearduino($id, Request $request){
+    public function updatearduino($id, Arduinorequest $request){
         $animal = Animal_livestock::where('tag_id', $id)->first();
         if($animal){
           return $this->testinterface->updatearduino($id, $request);
