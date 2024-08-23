@@ -39,7 +39,8 @@ return [
     'allowed_methods' => ['*'],
     // 'allowed_origins' => ['*'],
     // 'allowed_origins' => ['*'],
-    'allowed_origins' => ['http://localhost:3000', 'https://ranchidpro.com', 'http://127.0.0.1:8000'], // or specify the necessary origins
+    // 'allowed_origins' => ['http://localhost:3000', 'https://ranchidpro.com', 'http://127.0.0.1:8000'], // or specify the necessary origins
+    'allowed_origins' => ['https://ranchidpro.com', 'https://farms-frontend-djj6gwjcx-okpeku-stephens-projects.vercel.app',  'https://www.ranchidpro.com', 'http://localhost:3000', 'http://127.0.0.1:8000', ], // or specify the necessary origins 'http://localhost:3000', 'http://127.0.0.1:8000'
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
