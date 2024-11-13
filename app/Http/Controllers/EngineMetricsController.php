@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Repository\Contracts\TestInterface;
 use App\Http\Requests\Arduinorequest;
 use App\Models\Animal_livestock;
+use App\Models\HealthRecord;
 use Illuminate\Http\Request;
 
 class EngineMetricsController extends Controller
@@ -19,6 +20,12 @@ class EngineMetricsController extends Controller
     public function updatearduino($id, Arduinorequest $request){
         $animal = Animal_livestock::where('tag_id', $id)->first();
         if($animal){
+            $animal->update([
+               'health_status'=> $request->health_status,
+            ]);
+           optional(HealthRecord::where("tagnumber", $id)->orderBy("created_at", "desc")->first())->update([
+            "status"=>$request->health_status
+            ]);
           return $this->testinterface->updatearduino($id, $request);
         }else{
           return response()->json(['error'=>'the animal tag id does not exist'],500);
