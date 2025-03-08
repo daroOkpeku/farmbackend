@@ -4,7 +4,7 @@
 
 const char* ssid = "your_ssid";
 const char* password = "your_password";
-const char* serverUrl = "https://api.ranchidpro.com/api/engine-metrics/NGBA0000NEO0431/update";
+const char* serverUrl = "https://api.ranchidpro.com/api/engine-metrics/update";
 
 void setup() {
     Serial.begin(115200);
@@ -41,12 +41,14 @@ void loop() {
         jsonDoc["rpm"] = 1500;
         jsonDoc["gyration"] = 120;
         jsonDoc["health_status"] = "Good";
+        jsonDoc["tag_id"] =    "NGBA0000NEO0431";
+        jsonDoc["api_key"]  =   'y6brycnm2mso1mqlbbmc3cz4mjkf810jqem2661u';
 
         String jsonData;
         serializeJson(jsonDoc, jsonData);
 
         // Send PUT request with JSON payload
-        int httpResponseCode = http.PUT(jsonData);
+        int httpResponseCode = http.POST(jsonData);
 
         if (httpResponseCode > 0) {
             String response = http.getString();
