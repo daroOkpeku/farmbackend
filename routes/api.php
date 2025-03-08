@@ -83,7 +83,7 @@ Route::controller(PostController::class)->group(function(){
 
 
 Route::controller(EngineMetricsController::class)->group(function(){
-    Route::put('/engine-metrics/{id}/update', 'updatearduino');
+    Route::post('/engine-metrics/update', 'updatearduino');
 
 });
 
